@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -2854247955176494367}
   - component: {fileID: 5448930422580769911}
   - component: {fileID: 8802225235287800455}
+  - component: {fileID: -2365190087670366649}
   m_Layer: 0
   m_Name: Fan_Girl
   m_TagString: Enemy
@@ -173,3 +174,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-2365190087670366649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3662175237616204373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20342eade14596546a452ae463d81a0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

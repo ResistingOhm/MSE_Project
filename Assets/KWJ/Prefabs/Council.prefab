@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5778092581561560538}
   - component: {fileID: 2291872541567981090}
   - component: {fileID: -7630116466654174408}
+  - component: {fileID: 8001176941191351066}
   m_Layer: 0
   m_Name: Council
   m_TagString: Enemy
@@ -173,3 +174,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &8001176941191351066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3063987321924068357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20342eade14596546a452ae463d81a0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

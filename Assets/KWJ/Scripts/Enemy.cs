@@ -7,8 +7,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyData enemyData;
     private bool isAlive = true;
 
-    public GameObject player;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -25,17 +23,18 @@ public class Enemy : MonoBehaviour
     {
         if (isAlive)
         {
-            Vector3 dir = (player.transform.position - transform.position).normalized;
+            Vector3 playerPos = EnemySpawnManager.esm.GetPlayerPos();
+            Vector3 dir = (playerPos - transform.position).normalized;
             transform.Translate(dir * enemyData.Speed * Time.deltaTime);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Bullet")
-        {
-            Destroy(gameObject, 1);
-            isAlive = false;
-        }
+//        if (collision.collider.tag == "Bullet")
+//        {
+//            Destroy(gameObject, 1);
+//            isAlive = false;
+//        }
     }
 }
