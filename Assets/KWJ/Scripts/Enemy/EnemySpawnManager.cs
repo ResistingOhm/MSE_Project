@@ -26,18 +26,34 @@ public class EnemySpawnManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SpawnEnemies();
+            SpawnEnemies(MoveType.FOLLOW);
         }
     }
 
-    private void SpawnEnemies()
+    public void SpawnEnemies(MoveType mt)
     {
-        int randomint = Random.Range(0, 5);
-        Debug.Log(randomint);
+        int randomPos = Random.Range(0, 5);
+        int randomNum = Random.Range(1, 4);
 
-        ObjectPoolManager.pm.SpawnFromPool("FGN", spawnPoints[randomint].position, Quaternion.identity);
-        ObjectPoolManager.pm.SpawnFromPool("FBN", spawnPoints[randomint].position, Quaternion.identity);
-        ObjectPoolManager.pm.SpawnFromPool("CCN", spawnPoints[randomint].position, Quaternion.identity);
+        Debug.Log(randomPos);
+
+        for(int i = 0; i < randomNum; i++)
+        {
+            Enemy spawnedEnemies;
+            int temp = LevelManager.LvManager.stageLv.IsCouncilSpawn ? 3 : 2;
+            int randomint = Random.Range(0, temp);
+            spawnedEnemies = ObjectPoolManager.pm.SpawnFromPool("FGN", spawnPoints[randomPos].position, Quaternion.identity).GetComponent<Enemy>();
+            if (randomint == 1) spawnedEnemies = ObjectPoolManager.pm.SpawnFromPool("FBN", spawnPoints[randomPos].position, Quaternion.identity).GetComponent<Enemy>();
+            if (randomint == 2) spawnedEnemies = ObjectPoolManager.pm.SpawnFromPool("CCN", spawnPoints[randomPos].position, Quaternion.identity).GetComponent<Enemy>();
+
+            spawnedEnemies.setMoveType(mt);
+            spawnedEnemies.setDest(GetPlayerPos());
+        }
+    }
+
+    public void SpawnBoss()
+    {
+
     }
 
     public Vector3 GetPlayerPos()

@@ -2,10 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MoveType
+{
+    FOLLOW,
+    HORDE,
+    WALL_W,
+    WALL_L,
+}
+
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyData enemyData;
     private bool isAlive = true;
+
+    private Vector3 dest; //destination for Horde, Wall
+    private MoveType movetype = MoveType.FOLLOW;
+
+    public void setDest(Vector3 v)
+    {
+        dest = (v - transform.position).normalized;
+    }
+
+    public void setMoveType(MoveType mt)
+    {
+        movetype = mt;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -21,12 +42,29 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (isAlive)
+        if (!isAlive)
         {
-            Vector3 playerPos = EnemySpawnManager.esm.GetPlayerPos();
-            Vector3 dir = (playerPos - transform.position).normalized;
-            transform.Translate(dir * enemyData.Speed * Time.deltaTime);
+            return;
         }
+        
+        switch (movetype)
+        {
+            case MoveType.FOLLOW:
+                setDest(EnemySpawnManager.esm.GetPlayerPos());
+                break;
+            case MoveType.HORDE:
+                break;
+            case MoveType.WALL_W:
+                setDest(new Vector3(dest.x, 0, 0));
+                break;
+            case MoveType.WALL_L:
+                setDest(new Vector3(0, dest.y, 0));
+                break;
+            default:
+                break;
+        }
+
+        transform.Translate(dest * enemyData.Speed * LevelManager.LvManager.stageLv.Speed * Time.deltaTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
