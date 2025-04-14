@@ -54,11 +54,9 @@ public class Enemy : MonoBehaviour
                 break;
             case MoveType.HORDE:
                 break;
-            case MoveType.WALL_W:
-                setDest(new Vector3(dest.x, 0, 0));
-                break;
             case MoveType.WALL_L:
-                setDest(new Vector3(0, dest.y, 0));
+                break;
+            case MoveType.WALL_W:
                 break;
             default:
                 break;
