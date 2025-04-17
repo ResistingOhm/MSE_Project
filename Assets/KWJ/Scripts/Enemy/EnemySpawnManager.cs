@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawnManager : MonoBehaviour
@@ -19,7 +21,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         if (esm == null) esm = GetComponent<EnemySpawnManager>();
 
-        spawnPoints = spawnPointsParent.GetComponentsInChildren<Transform>();
+        spawnPoints = spawnPointsParent.GetComponentsInChildren<Transform>().Where(t=>t != spawnPointsParent.transform).ToArray();
     }
 
     // Update is called once per frame
@@ -39,13 +41,18 @@ public class EnemySpawnManager : MonoBehaviour
         {
             SpawnEnemies(MoveType.HORDE);
         }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            SpawnBoss();
+        }
     }
 
-    public void SpawnEnemies(MoveType mt)
+    public void SpawnEnemies(MoveType mt, int spawnNum = -1)
     {
         if (mt == MoveType.WALL_L)
         {
-            int ri = Random.Range(2, 4);
+            int ri = Random.Range(spawnPoints.Length - 2, spawnPoints.Length);
             float pos_x = spawnPoints[ri].position.x;
 
             for (int i = -12; i < 13; i+=2)
@@ -61,7 +68,7 @@ public class EnemySpawnManager : MonoBehaviour
 
         if (mt == MoveType.WALL_W)
         {
-            int ri = Random.Range(2, 4);
+            int ri = Random.Range(spawnPoints.Length - 2, spawnPoints.Length);
             float pos_y = spawnPoints[ri].position.y;
 
             for (int i = -12; i < 13; i += 2)
@@ -75,14 +82,16 @@ public class EnemySpawnManager : MonoBehaviour
             return;
         }
 
-        int randomPos = Random.Range(0, 5);
-        int randomNum = Random.Range(1, 4);
+        int res = GetSpawnPointRanodm();
 
-        Debug.Log(randomPos);
+        int sn = spawnNum;
+        if(spawnNum == -1) sn = Random.Range(1, 4);
 
-        for(int i = 0; i < randomNum; i++)
+        Debug.Log(res);
+
+        for(int i = 0; i < sn; i++)
         {
-            Enemy spawnedEnemies = chooseEnemy(spawnPoints[i].transform.position);
+            Enemy spawnedEnemies = chooseEnemy(spawnPoints[res].transform.position);
 
             spawnedEnemies.setMoveType(mt);
             spawnedEnemies.setDest(GetPlayerPos());
@@ -104,7 +113,25 @@ public class EnemySpawnManager : MonoBehaviour
 
     public void SpawnBoss()
     {
+        int res = GetSpawnPointRanodm();
+        Boss boss = ObjectPoolManager.pm.SpawnFromPool("BSS", spawnPoints[res].transform.position, Quaternion.identity).GetComponent<Boss>();
+        boss.setMoveType(MoveType.FOLLOW);
+        boss.setDest(GetPlayerPos());
+    }
 
+    private int GetSpawnPointRanodm()
+    {
+        int res;
+        int randomPos = Random.Range(0, spawnPoints.Length);
+        if (spawnPoints[randomPos].GetComponent<SpawnPoints>().GetAble())
+        {
+            res = randomPos;
+        } else
+        {
+            res = randomPos + 1;
+            if (res > spawnPoints.Length - 1) res -= spawnPoints.Length;
+        }
+        return res;
     }
 
     public Vector3 GetPlayerPos()

@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour
 
             int min = (int)Mathf.Floor(currentTimer / 60);
             int sec = (int)Mathf.Floor(currentTimer % 60);
-            timerText.text = string.Format("{0:00}:{1:00}", min,sec);
+            timerText.text = string.Format("{0:00}:{1:00}", min, sec);
 
             if (enemySpawnTimer > EnemySpawnTime)
             {
@@ -50,7 +50,7 @@ public class LevelManager : MonoBehaviour
                 bossSpawnTimer = 0f;
                 EnemySpawnManager.esm.SpawnBoss();
             }
-            if (currentTimer > 90000 )
+            if (currentTimer > 90000)
             {
                 isGamePlaying = false;
                 timerText.text = string.Format("{0:00}", 0);

@@ -7,23 +7,13 @@ public class ObjectPoolManager : MonoBehaviour
     public static ObjectPoolManager pm;
 
     [SerializeField]
-    private ObjectPool fanGirlNormal;
+    private ObjectPool fanGirl;
     [SerializeField]
-    private ObjectPool fanBoyNormal;
+    private ObjectPool fanBoy;
     [SerializeField]
-    private ObjectPool councilNormal;
+    private ObjectPool council;
     [SerializeField]
-    private ObjectPool fanGirlHorde;
-    [SerializeField]
-    private ObjectPool fanBoyHorde;
-    [SerializeField]
-    private ObjectPool councilHorde;
-    [SerializeField]
-    private ObjectPool fanGirlWall;
-    [SerializeField]
-    private ObjectPool fanBoyWall;
-    [SerializeField]
-    private ObjectPool councilWall;
+    private ObjectPool boss;
 
 
     public Dictionary<string, ObjectPool> poolDictionary;
@@ -33,15 +23,10 @@ public class ObjectPoolManager : MonoBehaviour
         if (pm==null) pm = GetComponent<ObjectPoolManager>();
         poolDictionary = new Dictionary<string, ObjectPool>
         {
-            { "FGN", fanGirlNormal },
-            { "FBN", fanBoyNormal },
-            { "CCN", councilNormal },
-            { "FGH", fanGirlHorde },
-            { "FBH", fanBoyHorde },
-            { "CCH", councilHorde },
-            { "FGW", fanGirlWall },
-            { "FBW", fanBoyWall },
-            { "CCW", councilWall },
+            { "FGN", fanGirl },
+            { "FBN", fanBoy },
+            { "CCN", council },
+            { "BSS", boss },
         };
     }
 

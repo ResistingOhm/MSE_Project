@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9b7ada482f34d47ad11524cf460328, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  attck: 5
-  hp: 5
-  speed: 5
+  attck: 3
+  hp: 3
+  speed: 3
+  isCouncilSpawn: 0

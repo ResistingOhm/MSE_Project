@@ -12,11 +12,12 @@ public enum MoveType
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private EnemyData enemyData;
-    private bool isAlive = true;
+    [SerializeField] protected EnemyData enemyData;
+    protected bool isAlive = true;
 
-    private Vector3 dest; //destination for Horde, Wall
-    private MoveType movetype = MoveType.FOLLOW;
+    protected Vector3 dest; //destination for Horde, Wall
+    protected MoveType movetype = MoveType.FOLLOW;
+    protected Rigidbody2D rb;
 
     public void setDest(Vector3 v)
     {
@@ -31,7 +32,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -46,7 +47,7 @@ public class Enemy : MonoBehaviour
         {
             return;
         }
-        
+
         switch (movetype)
         {
             case MoveType.FOLLOW:
@@ -62,7 +63,8 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
-        transform.Translate(dest * enemyData.Speed * LevelManager.LvManager.stageLv.Speed * Time.deltaTime);
+        //transform.Translate(dest * enemyData.Speed * LevelManager.LvManager.stageLv.Speed * Time.deltaTime);
+        rb.velocity = dest * enemyData.Speed * LevelManager.LvManager.stageLv.Speed;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
