@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] protected EnemyData enemyData;
     protected bool isAlive = true;
+    private float deadTime = 0f;
 
     protected Vector3 dest; //destination for Horde, Wall
     protected MoveType movetype = MoveType.FOLLOW;
@@ -38,7 +39,17 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isAlive)
+        {
+            return;
+        }
+
+        deadTime += Time.deltaTime;
+
+        if (deadTime > 2f)
+        {
+            gameObject.SetActive(false);
+        }
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -69,10 +80,9 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-//        if (collision.collider.tag == "Bullet")
-//        {
-//            Destroy(gameObject, 1);
-//            isAlive = false;
-//        }
+        if (collision.collider.tag == "Bullet")
+        {
+            isAlive = false;
+        }
     }
 }
