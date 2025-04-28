@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>
+            UserData--FetchUser
+        </title>
+    </head>
+    <body>
+        <table class="tb_col">
+            <tr>
+            <th>name</th>
+            <th>userId</th>
+            <th>hashed_password</th>
+            <th>uuid</th>
+            </tr>
+            <tr th:each="user : ${UserList}">
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.hashed_password}"></td>
+                <td th:text="${user.uuid}"></td>
+            </tr>
+        </table>
+    </body>
+</html>
