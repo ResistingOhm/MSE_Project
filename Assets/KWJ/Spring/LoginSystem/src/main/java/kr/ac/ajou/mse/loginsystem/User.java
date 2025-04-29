@@ -31,4 +31,11 @@ public class User {
             return false;
         }
     }
+
+    public boolean compareIdPassword(String inputId, byte[] inputPassword) {
+
+        if (!id.equals(inputId)) return false;
+
+        return java.util.Arrays.equals(hashed_password, inputPassword);
+    }
 }

@@ -32,6 +32,22 @@ public class UserManagerImpl implements IUserManager{
         users.add(u);
         return true;
     }
+
+    public User login(String id, String password) throws NoSuchAlgorithmException {
+        if (id == null || password == null) {
+            return null;
+        }
+
+        byte[] hashed_password = hashingPassword(password);
+
+        for (User u : users) {
+            if(u.compareIdPassword(id, hashed_password)){
+             return u;
+            } 
+        }
+
+        return null;
+    }
     
     private byte[] hashingPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");	// SHA-256 해시함수를 사용 
