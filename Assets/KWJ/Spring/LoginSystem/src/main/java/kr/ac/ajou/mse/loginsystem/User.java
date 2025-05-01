@@ -16,7 +16,7 @@ public class User {
     private String name;
     private String id;  //Unique Value
     private byte[] hashed_password;
-    private UUID uuid;
+    private UUID uuid;  //Unique Value
 
     //Comparing between User uses id
     //If same Id, same User.
