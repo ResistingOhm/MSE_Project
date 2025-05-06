@@ -13,6 +13,7 @@ public enum MoveType
 public class Enemy : MonoBehaviour
 {
     [SerializeField] protected EnemyData enemyData;
+    [SerializeField] protected GameObject expPrefab;
     protected bool isAlive = true;
     private float deadTime = 0f;
 
@@ -83,6 +84,8 @@ public class Enemy : MonoBehaviour
         if (collision.collider.tag == "Bullet")
         {
             isAlive = false;
+            GameObject o = Instantiate(expPrefab);
+            o.transform.position = transform.position;
         }
     }
 }
