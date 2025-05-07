@@ -31,6 +31,11 @@ public class Enemy : MonoBehaviour
         movetype = mt;
     }
 
+    public float GetAttackPower()
+    {
+        return enemyData.Attack * LevelManager.LvManager.stageLv.Attack;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
