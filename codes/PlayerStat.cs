@@ -1,13 +1,13 @@
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerStat
+public class PlayerStat : MonoBehaviour
 {
     public float maxHP = 100f;
     public float currentHP = 100f;
     public float attack = 10f;
-    public float defense = 5f;  // ¹æ¾î·Â
-    public float luck = 0f;     // Çà¿î
+    public float defense = 5f;  // ë°©ì–´ë ¥
+    public float luck = 0f;     // í–‰ìš´
     public float moveSpeed = 5f;
 
     public int level = 1;
@@ -20,7 +20,7 @@ public class PlayerStat
     }
     public void TakeDamage(float dmg)
     {
-        float finalDmg = Mathf.Max(dmg - defense, 1); // ÃÖ¼Ò 1 µ¥¹ÌÁö´Â ¹ŞÀ½
+        float finalDmg = Mathf.Max(dmg - defense, 1); // ìµœì†Œ 1 ë°ë¯¸ì§€ëŠ” ë°›ìŒ
         currentHP -= finalDmg;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
     }
@@ -43,9 +43,9 @@ public class PlayerStat
     void LevelUp()
     {
         level++;
-        maxExp *= 1.2f; // Á¡Á¡ ·¹º§¾÷¿¡ ÇÊ¿äÇÑ °æÇèÄ¡ Áõ°¡
-        Debug.Log("·¹º§¾÷! ÇöÀç ·¹º§: " + level);
-        // ½ºÅÈ°­È­uiÇÊ¿ä...
+        maxExp *= 1.2f; // ì ì  ë ˆë²¨ì—…ì— í•„ìš”í•œ ê²½í—˜ì¹˜ ì¦ê°€
+        Debug.Log("ë ˆë²¨ì—…! í˜„ì¬ ë ˆë²¨: " + level);
+        // ìŠ¤íƒ¯ê°•í™”uií•„ìš”...
         GameManager.instance.player.OnLevelUp(); 
     }
 
