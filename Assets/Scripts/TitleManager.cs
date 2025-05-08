@@ -5,11 +5,36 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
-     public GameObject settingsPanel;
+     public GameObject creditPanel;
 
     public void OnClickStartButton()
     {
         SceneManager.LoadScene("MainScene");
+    }
+    public void OnClickLeaderBoardButton()
+    {
+        SceneManager.LoadScene("LeaderBoard");
+    }
+    public void OnClickBackdButton()
+    {
+        SceneManager.LoadScene("Title");
+    }
+    public void OnClickLevelOneButton()
+    {
+        SceneManager.LoadScene("MapOne");
+    }public void OnClickLevelTwoButton()
+    {
+        SceneManager.LoadScene("MapTwo");
+    }
+    void Start()
+    {
+    creditPanel.SetActive(false); // 씬 시작할 때 꺼줌
+    }
+    public void OnCreditClicked(){
+          creditPanel.SetActive(true);
+    }
+    public void CloseCredit(){
+        creditPanel.SetActive(false);
     }
     public void OnClickExitButton()
     {
@@ -18,7 +43,5 @@ public class TitleManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
-    public void OnSettingButtonClicked(){
-          settingsPanel.SetActive(true);
-    }
+    
 }

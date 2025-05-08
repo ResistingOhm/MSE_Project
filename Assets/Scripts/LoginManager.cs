@@ -30,7 +30,7 @@ public class LoginManager : MonoBehaviour
         Debug.Log("로그인 성공!");
         SceneManager.LoadScene("MainScene"); 
     }
-    public void OnBackButtonClicked(){
-        SceneManager.LoadScene("Title");
+    public void OnAccountButtonClicked(){
+        SceneManager.LoadScene("Account");
     }
 }

@@ -10,7 +10,21 @@ public class SettingsMenu : MonoBehaviour
     public Button logoutButton;
     public Button quitButton;
     public Button closeButton;
+    
+    private static SettingsMenu instance;
 
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
         settingsPanel.SetActive(false);
@@ -28,15 +42,12 @@ public class SettingsMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            settingsPanel.SetActive(!settingsPanel.activeSelf);
+            if (settingsPanel != null)
+            {
+                settingsPanel.SetActive(!settingsPanel.activeSelf);
+            }
         }
     }
-
-    public void OpenSettings()
-    {
-        settingsPanel.SetActive(true);
-    }
-
     public void CloseSettings()
     {
         settingsPanel.SetActive(false);
@@ -45,7 +56,7 @@ public class SettingsMenu : MonoBehaviour
     public void OnVolumeChanged(float value)
     {
         AudioListener.volume = value;
-        PlayerPrefs.SetFloat("Volume", value); // 볼륨 저장
+        PlayerPrefs.SetFloat("Volume", value);
         PlayerPrefs.Save();
     }
 
@@ -53,7 +64,6 @@ public class SettingsMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Login");
     }
-
     public void OnQuit()
     {
         #if UNITY_EDITOR

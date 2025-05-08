@@ -9,8 +9,7 @@ public class AccountManager : MonoBehaviour
 {
     public TMP_InputField InputFieldID;         
     public TMP_InputField InputFieldPW;         
-    public TMP_InputField InputFieldCheckPW;    
-    public TMP_InputField InputFieldEmail;      
+    public TMP_InputField InputFieldCheckPW;        
     public TMP_InputField InputFieldName;       
 
     public void OnClickSubmitButton()
@@ -28,7 +27,6 @@ public class AccountManager : MonoBehaviour
         }
 
         PlayerPrefs.SetString(InputFieldID.text + "_Password", InputFieldPW.text);
-        PlayerPrefs.SetString(InputFieldID.text + "_Email", InputFieldEmail.text);
         PlayerPrefs.SetString(InputFieldID.text + "_Name", InputFieldName.text);
         PlayerPrefs.Save();
 
@@ -39,6 +37,6 @@ public class AccountManager : MonoBehaviour
 
     public void OnBackButtonClicked()
     {
-        SceneManager.LoadScene("Title");
+        SceneManager.LoadScene("Login");
     }
 }
