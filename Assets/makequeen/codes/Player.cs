@@ -50,11 +50,21 @@ public class Player : MonoBehaviour
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("EXP"))
+        if (collision.CompareTag("Exp"))
         {
             float exp = collision.GetComponent<EXPController>().GetExpValue();
             stat.GainExp(exp);
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
+        }
+
+        if (collision.CompareTag("Enemy"))
+        {
+            Enemy enemy = collision.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                float damage = enemy.GetAttackPower();
+                ReceiveDamage(damage);
+            }
         }
     }
 
@@ -100,19 +110,5 @@ public class Player : MonoBehaviour
             yield return null;
         }
     }
-
-    /*private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy"))
-        {
-            Enemy enemy = collision.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                float damage = enemy.GetAttackPower();
-                stat.TakeDamage(damage);
-            }
-        }
-    }*/
-
 
 }

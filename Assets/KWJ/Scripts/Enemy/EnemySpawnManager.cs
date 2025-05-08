@@ -5,24 +5,13 @@ using UnityEngine;
 
 public class EnemySpawnManager : MonoBehaviour
 {
-    public static EnemySpawnManager esm;
-
     private Transform[] spawnPoints;
 
-    [SerializeField]
-    private GameObject player;
     [SerializeField]
     private GameObject spawnPointsParent;
     void Awake()
     {
-        if (esm != null && esm != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            esm = GetComponent<EnemySpawnManager>();
-        }
+
     }
     // Start is called before the first frame update
     void Start()
@@ -33,6 +22,7 @@ public class EnemySpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /* For Test
         if (Input.GetKeyDown(KeyCode.W))
         {
             SpawnEnemies(MoveType.WALL_W);
@@ -52,6 +42,7 @@ public class EnemySpawnManager : MonoBehaviour
         {
             SpawnBoss();
         }
+        */
     }
 
     public void SpawnEnemies(MoveType mt, int spawnNum = -1)
@@ -66,7 +57,7 @@ public class EnemySpawnManager : MonoBehaviour
                 Enemy spawnedEnemies = chooseEnemy(new Vector3(pos_x, i, 0));
 
                 spawnedEnemies.setMoveType(mt);
-                spawnedEnemies.setDest(new Vector3(GetPlayerPos().x, i, 0));
+                spawnedEnemies.setDest(new Vector3(LevelManager.LvManager.GetPlayerPos().x, i, 0));
             }
 
             return;
@@ -82,7 +73,7 @@ public class EnemySpawnManager : MonoBehaviour
                 Enemy spawnedEnemies = chooseEnemy(new Vector3(i, pos_y, 0));
 
                 spawnedEnemies.setMoveType(mt);
-                spawnedEnemies.setDest(new Vector3(i, GetPlayerPos().y,0));
+                spawnedEnemies.setDest(new Vector3(i, LevelManager.LvManager.GetPlayerPos().y,0));
             }
 
             return;
@@ -100,7 +91,7 @@ public class EnemySpawnManager : MonoBehaviour
             Enemy spawnedEnemies = chooseEnemy(spawnPoints[res].transform.position);
 
             spawnedEnemies.setMoveType(mt);
-            spawnedEnemies.setDest(GetPlayerPos());
+            spawnedEnemies.setDest(LevelManager.LvManager.GetPlayerPos());
         }
     }
 
@@ -122,7 +113,7 @@ public class EnemySpawnManager : MonoBehaviour
         int res = GetSpawnPointRanodm();
         Boss boss = ObjectPoolManager.pm.SpawnFromPool("BSS", spawnPoints[res].transform.position, Quaternion.identity).GetComponent<Boss>();
         boss.setMoveType(MoveType.FOLLOW);
-        boss.setDest(GetPlayerPos());
+        boss.setDest(LevelManager.LvManager.GetPlayerPos());
     }
 
     private int GetSpawnPointRanodm()
@@ -138,10 +129,5 @@ public class EnemySpawnManager : MonoBehaviour
             if (res > spawnPoints.Length - 1) res -= spawnPoints.Length;
         }
         return res;
-    }
-
-    public Vector3 GetPlayerPos()
-    {
-        return player.transform.position;
     }
 }

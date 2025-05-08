@@ -497,6 +497,7 @@ GameObject:
   - component: {fileID: 910527127}
   - component: {fileID: 910527128}
   - component: {fileID: 910527129}
+  - component: {fileID: 910527130}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -648,8 +649,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ce80beedf4f754094e5e1bf3f5f578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stat: {fileID: 0}
   inputVec: {x: 0, y: 0}
   speed: 4
+  enemyscanner: {fileID: 0}
 --- !u!114 &910527129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -665,8 +668,29 @@ MonoBehaviour:
   scanRange: 7
   targetLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   nearestTarget: {fileID: 0}
+--- !u!114 &910527130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910527123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4972353d3a82ea1418fbca7434fa2e67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 100
+  currentHP: 100
+  attack: 10
+  defense: 5
+  luck: 0
+  moveSpeed: 5
+  level: 1
+  currentExp: 0
+  maxExp: 10
 --- !u!1 &1199340997
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,6 +720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d39f5809bef154ea0d27a1a6f39896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pool: {fileID: 0}
   player: {fileID: 0}
 --- !u!4 &1199340999
 Transform:

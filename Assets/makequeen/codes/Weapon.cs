@@ -54,7 +54,7 @@ public class Weapon : MonoBehaviour
         Vector3 dir = targetPos - transform.position;
         dir = dir.normalized;
 
-        Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
+        Transform bullet = ObjectPoolManager.pm.SpawnFromPool("BLT", transform.position, Quaternion.identity).transform;
         bullet.position = transform.position;
         bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
 

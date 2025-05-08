@@ -48,7 +48,7 @@ public class PlayerStat : MonoBehaviour
         maxExp *= 1.2f; // 점점 레벨업에 필요한 경험치 증가
         Debug.Log("레벨업! 현재 레벨: " + level);
         // 스탯강화ui필요...
-        GameManager.instance.player.OnLevelUp(); 
+        LevelManager.LvManager.player.OnLevelUp(); 
     }
 
 

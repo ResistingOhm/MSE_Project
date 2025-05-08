@@ -5,6 +5,11 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager LvManager;
 
+    [SerializeField]
+    private EnemySpawnManager esm;
+
+    public Player player;
+
     public LevelData stageLv;
 
     public float EnemySpawnTime = 5f;
@@ -51,12 +56,12 @@ public class LevelManager : MonoBehaviour
             {
                 enemySpawnTimer = 0f;
                 int i = Random.Range(0, 4);
-                EnemySpawnManager.esm.SpawnEnemies((MoveType)i);
+                esm.SpawnEnemies((MoveType)i);
             }
             if (bossSpawnTimer > BossSpawnTime && bossSpawnNum < 3)
             {
                 bossSpawnTimer = 0f;
-                EnemySpawnManager.esm.SpawnBoss();
+                esm.SpawnBoss();
                 bossSpawnNum++;
             }
             if (currentTimer > 90000)
@@ -72,6 +77,10 @@ public class LevelManager : MonoBehaviour
     {
         currentTimer = 0;
         isGamePlaying = true;
+    }
+    public Vector3 GetPlayerPos()
+    {
+        return player.transform.position;
     }
 
 }

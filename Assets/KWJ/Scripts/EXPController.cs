@@ -26,7 +26,7 @@ public class EXPController : MonoBehaviour
     {
         if (isDetected)
         {
-            playerPos = EnemySpawnManager.esm.GetPlayerPos();
+            playerPos = LevelManager.LvManager.GetPlayerPos();
 
             Vector3 dir = (playerPos - transform.position).normalized;
             transform.Translate(dir * speed * Time.deltaTime);

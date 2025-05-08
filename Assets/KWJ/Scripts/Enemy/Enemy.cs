@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     protected Vector3 dest; //destination for Horde, Wall
     protected MoveType movetype = MoveType.FOLLOW;
     protected Rigidbody2D rb;
+    protected Collider2D c;
 
     public void setDest(Vector3 v)
     {
@@ -38,9 +39,10 @@ public class Enemy : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        c = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -51,7 +53,6 @@ public class Enemy : MonoBehaviour
             if (currentHp < 0f)
             {
                 isAlive = false;
-                Collider2D c = GetComponent<Collider2D>();
                 c.enabled = false;
                 rb.velocity = Vector2.zero;
                 int j = enemyData.Exp * LevelManager.LvManager.stageLv.EXP;
@@ -62,6 +63,11 @@ public class Enemy : MonoBehaviour
                     ObjectPoolManager.pm.SpawnFromPool("EXP", transform.position + new Vector3(x, y, 0), Quaternion.identity);
                 }
             }
+
+            Vector3 offset = transform.position - LevelManager.LvManager.GetPlayerPos();
+            float d = offset.magnitude;
+            if (d > 50f) { gameObject.SetActive(false); }
+
             return;
         }
 
@@ -83,7 +89,7 @@ public class Enemy : MonoBehaviour
         switch (movetype)
         {
             case MoveType.FOLLOW:
-                setDest(EnemySpawnManager.esm.GetPlayerPos());
+                setDest(LevelManager.LvManager.GetPlayerPos());
                 break;
             case MoveType.HORDE:
                 break;
@@ -101,20 +107,22 @@ public class Enemy : MonoBehaviour
     void OnEnable()
     {
         isAlive = true;
+        c.enabled = true;
         currentHp = enemyData.Hp * LevelManager.LvManager.stageLv.Hp;
     }
 
     private void OnDisable()
     {
         isAlive = false;
+        rb.velocity = Vector2.zero;
         currentHp = 0;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.collider.tag == "Bullet")
+        if (collision.tag == "Bullet")
         {
-            currentHp -= 1f;
+            currentHp -= collision.gameObject.GetComponent<Bullet>().damage;
         }
     }
 }

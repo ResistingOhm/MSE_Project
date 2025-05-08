@@ -37,7 +37,7 @@ public class Boss : Enemy
         switch (movetype)
         {
             case MoveType.FOLLOW:
-                setDest(EnemySpawnManager.esm.GetPlayerPos());
+                setDest(LevelManager.LvManager.GetPlayerPos());
                 break;
             case MoveType.HORDE:
                 break;

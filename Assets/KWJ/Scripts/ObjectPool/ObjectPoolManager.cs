@@ -16,6 +16,8 @@ public class ObjectPoolManager : MonoBehaviour
     private ObjectPool boss;
     [SerializeField]
     private ObjectPool exp;
+    [SerializeField]
+    private ObjectPool bullet;
 
 
     public Dictionary<string, ObjectPool> poolDictionary;
@@ -30,6 +32,7 @@ public class ObjectPoolManager : MonoBehaviour
             { "CCN", council },
             { "BSS", boss },
             { "EXP", exp },
+            { "BLT", bullet },
         };
     }
 
