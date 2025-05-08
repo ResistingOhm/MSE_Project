@@ -14,6 +14,8 @@ public class ObjectPoolManager : MonoBehaviour
     private ObjectPool council;
     [SerializeField]
     private ObjectPool boss;
+    [SerializeField]
+    private ObjectPool exp;
 
 
     public Dictionary<string, ObjectPool> poolDictionary;
@@ -27,6 +29,7 @@ public class ObjectPoolManager : MonoBehaviour
             { "FBN", fanBoy },
             { "CCN", council },
             { "BSS", boss },
+            { "EXP", exp },
         };
     }
 

@@ -87,7 +87,7 @@ public class EnemySpawnManager : MonoBehaviour
         int sn = spawnNum;
         if(spawnNum == -1) sn = Random.Range(1, 4);
 
-        Debug.Log(res);
+        //Debug.Log(res);
 
         for(int i = 0; i < sn; i++)
         {

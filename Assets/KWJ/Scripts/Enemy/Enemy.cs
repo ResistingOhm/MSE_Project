@@ -4,10 +4,10 @@ using UnityEngine;
 
 public enum MoveType
 {
-    FOLLOW,
-    HORDE,
-    WALL_W,
-    WALL_L,
+    FOLLOW=0,
+    HORDE=1,
+    WALL_W=2,
+    WALL_L=3,
 }
 
 public class Enemy : MonoBehaviour
@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected GameObject expPrefab;
     protected bool isAlive = true;
     private float deadTime = 0f;
+    private float currentHp = 0f;
 
     protected Vector3 dest; //destination for Horde, Wall
     protected MoveType movetype = MoveType.FOLLOW;
@@ -47,6 +48,20 @@ public class Enemy : MonoBehaviour
     {
         if (isAlive)
         {
+            if (currentHp < 0f)
+            {
+                isAlive = false;
+                Collider2D c = GetComponent<Collider2D>();
+                c.enabled = false;
+                rb.velocity = Vector2.zero;
+                int j = enemyData.Exp * LevelManager.LvManager.stageLv.EXP;
+                for (int i = 0; i < j; i++)
+                {
+                    float x = Random.Range(-0.5f, 0.5f);
+                    float y = Random.Range(-0.5f, 0.5f);
+                    ObjectPoolManager.pm.SpawnFromPool("EXP", transform.position + new Vector3(x, y, 0), Quaternion.identity);
+                }
+            }
             return;
         }
 
@@ -83,14 +98,23 @@ public class Enemy : MonoBehaviour
         //transform.Translate(dest * enemyData.Speed * LevelManager.LvManager.stageLv.Speed * Time.deltaTime);
         rb.velocity = dest * enemyData.Speed * LevelManager.LvManager.stageLv.Speed;
     }
+    void OnEnable()
+    {
+        isAlive = true;
+        currentHp = enemyData.Hp * LevelManager.LvManager.stageLv.Hp;
+    }
+
+    private void OnDisable()
+    {
+        isAlive = false;
+        currentHp = 0;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "Bullet")
         {
-            isAlive = false;
-            GameObject o = Instantiate(expPrefab);
-            o.transform.position = transform.position;
+            currentHp -= 1f;
         }
     }
 }

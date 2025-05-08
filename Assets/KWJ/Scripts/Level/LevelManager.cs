@@ -43,12 +43,14 @@ public class LevelManager : MonoBehaviour
             if (enemySpawnTimer > EnemySpawnTime)
             {
                 enemySpawnTimer = 0f;
-                EnemySpawnManager.esm.SpawnEnemies(MoveType.FOLLOW);
+                int i = Random.Range(0, 4);
+                EnemySpawnManager.esm.SpawnEnemies((MoveType)i);
             }
-            if (bossSpawnTimer > BossSpawnTime)
+            if (bossSpawnTimer > BossSpawnTime && bossSpawnNum < 3)
             {
                 bossSpawnTimer = 0f;
                 EnemySpawnManager.esm.SpawnBoss();
+                bossSpawnNum++;
             }
             if (currentTimer > 90000)
             {

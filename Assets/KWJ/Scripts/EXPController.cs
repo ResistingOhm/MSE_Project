@@ -17,9 +17,9 @@ public class EXPController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        
+        isDetected = false;
     }
 
     private void FixedUpdate()
@@ -38,7 +38,7 @@ public class EXPController : MonoBehaviour
     {
         if (collider.tag == "Player")
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 

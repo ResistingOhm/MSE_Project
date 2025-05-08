@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da6ffc8fc53bc7647953bb26c8b36d39, type: 3}
   m_Name: Council Data
   m_EditorClassIdentifier: 
-  attck: 1.5
+  attack: 1.5
   hp: 1.5
   speed: 1
+  exp: 2

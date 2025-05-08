@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: b85ab8030ce3d3d4b8e2954a5ac9fa3b, type: 2}
-  player: {fileID: 0}
+  expPrefab: {fileID: 7525690456850355176, guid: cee5071bfcfa0414f8aff19f6ee49a8c, type: 3}
 --- !u!61 &2291872541567981090
 BoxCollider2D:
   m_ObjectHideFlags: 0

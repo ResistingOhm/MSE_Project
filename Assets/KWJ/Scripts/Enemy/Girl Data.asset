@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da6ffc8fc53bc7647953bb26c8b36d39, type: 3}
   m_Name: Girl Data
   m_EditorClassIdentifier: 
-  attck: 0.8
+  attack: 0.8
   hp: 1.2
   speed: 1
+  exp: 1

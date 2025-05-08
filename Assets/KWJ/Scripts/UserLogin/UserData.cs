@@ -2,10 +2,10 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class User
+public class UserData
 {
+    private string uuid;
     private string name;
-    private int userCode;
     private string id;
-    private string password;
+    private byte[] password;
 }
