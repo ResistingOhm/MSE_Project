@@ -4,8 +4,8 @@ using UnityEngine;
 [Serializable]
 public class UserData
 {
-    private string uuid;
-    private string name;
-    private string id;
-    private byte[] password;
+    public string uuid;
+    public string name;
+    public string id;
+    public string pw;
 }

@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -9,26 +8,44 @@ public class NetworkManager : MonoBehaviour
     private string loginUrl = "http://localhost:4444/userlogin/login";
     private string addUrl = "http://localhost:4444/userlogin/add";
 
-    public TMP_InputField nameInput;
-    public TMP_InputField ageInput;
-    public TMP_InputField hobbiesInput;
-    public TMP_InputField majorInput;
+    public TMP_InputField sNameInput;
+    public TMP_InputField sIdInput;
+    public TMP_InputField sPwInput;
+    public TMP_InputField sPwCheckInput;
+
+    public TMP_InputField loginIdInput;
+    public TMP_InputField loginPwInput;
 
     // called when "Random Person" button is clicked
-    public void GetRandomPerson()
+    public void LogIn()
     {
-        StartCoroutine(LoginRequest());
+        if (UserDataManager.udm.IsLogin())
+        {
+            Debug.Log("Already Login");
+            return;
+        }
+        string id = loginIdInput.text;
+        string pw = loginPwInput.text;
+        StartCoroutine(LoginRequest(id, pw));
     }
 
     // called when "Add Person" button is clicked
-    public void AddPerson()
+    public void SignIn()
     {
-        StartCoroutine(AddRequest());
+        string name = sNameInput.text;
+        string id = sIdInput.text;
+        if (!sPwInput.text.Equals(sPwCheckInput.text))
+        {
+            Debug.Log("Pw Not Correct");
+            return;
+        }
+        string pw = sIdInput.text;
+        StartCoroutine(AddRequest(name, id, pw));
     }
 
-    private IEnumerator LoginRequest()
+    private IEnumerator LoginRequest(string id, string pw)
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get(loginUrl);
+        UnityWebRequest webRequest = UnityWebRequest.Get(loginUrl+"?id="+id+"&password="+pw);
         
         // setting header
         webRequest.SetRequestHeader("Accept", "application/json");
@@ -50,43 +67,36 @@ public class NetworkManager : MonoBehaviour
                 // success! Let's parse the JSON data
                 string json = webRequest.downloadHandler.text;
                 Debug.Log(json);
-                parseResult(json);
+                parseUserDataResult(json);
                 break;
 
         }
     }
     // parsing JSON and showing it on the GUI
-    private void parseResult(string json)
+    private void parseUserDataResult(string json)
     {
-        Person p = JsonUtility.FromJson<Person>(json);
+        UserData u = JsonUtility.FromJson<UserData>(json);
 
-        nameInput.text = p.name;
-        ageInput.text = ""+p.age;
-        hobbiesInput.text = p.hobbies;
-        majorInput.text = p.major;
-
-
+        UserDataManager.udm.UserLogin(u.uuid, u.name);
     }
-    
-    // read data from the input fields, and create a json object based on them.
-    private string GetPersonJson()
+    private string GetPersonJson(string name, string id, string pw)
     {
-        Person p = new Person();
-        p.name = nameInput.text;
-        p.age = int.Parse(ageInput.text);
-        p.hobbies = hobbiesInput.text;
-        p.major = majorInput.text;
+        UserData u = new UserData();
+        u.name = name;
+        u.id = id;
+        u.pw = pw;
 
         // convert to json and return
-        return JsonUtility.ToJson(p);
+        return JsonUtility.ToJson(u);
     }
 
-    private IEnumerator AddRequest()
+    private IEnumerator AddRequest(string name, string id, string pw)
     {
-        string json = GetPersonJson();
+        string info = GetPersonJson(name, id, pw);
+        UnityWebRequest webRequest = UnityWebRequest.Post(addUrl, info, "application/json");
 
-        UnityWebRequest webRequest = UnityWebRequest.Post(addUrl, json, "application/json");
-
+        // setting header
+        webRequest.SetRequestHeader("Accept", "application/json");
 
         // executing the request
         yield return webRequest.SendWebRequest();
@@ -102,8 +112,9 @@ public class NetworkManager : MonoBehaviour
                 Debug.LogError("Protocol error: " + webRequest.error);
                 break;
             case UnityWebRequest.Result.Success:
-
-                Debug.Log("Adding result: " + webRequest.downloadHandler.text);
+                // success! Let's parse the JSON data
+                string json = webRequest.downloadHandler.text;
+                Debug.Log(json);
                 break;
 
         }

@@ -21,7 +21,14 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
-        if (LvManager == null) LvManager = GetComponent<LevelManager>();
+        if (LvManager != null && LvManager != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            LvManager = GetComponent<LevelManager>();
+        }
     }
     void Start()
     {

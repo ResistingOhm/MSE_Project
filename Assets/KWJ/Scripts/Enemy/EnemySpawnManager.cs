@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawnManager : MonoBehaviour
@@ -15,12 +13,20 @@ public class EnemySpawnManager : MonoBehaviour
     private GameObject player;
     [SerializeField]
     private GameObject spawnPointsParent;
-
+    void Awake()
+    {
+        if (esm != null && esm != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            esm = GetComponent<EnemySpawnManager>();
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
-        if (esm == null) esm = GetComponent<EnemySpawnManager>();
-
         spawnPoints = spawnPointsParent.GetComponentsInChildren<Transform>().Where(t=>t != spawnPointsParent.transform).ToArray();
     }
 
