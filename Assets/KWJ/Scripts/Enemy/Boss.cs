@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Boss : Enemy
 {
     private float chargeCoolDown = 5f;
     private float currentTime = 0f;
     private float chargeSpeed = 1f;
+
+    private bool isFinalBoss = false;
     void FixedUpdate()
     {
         currentTime += Time.deltaTime;
@@ -51,5 +54,14 @@ public class Boss : Enemy
 
         //transform.Translate(dest * enemyData.Speed * LevelManager.LvManager.stageLv.Speed * Time.deltaTime);
         rb.velocity = dest * enemyData.Speed * LevelManager.LvManager.stageLv.Speed * chargeSpeed;
+    }
+    override protected void enemyDeadEvent()
+    {
+        gameObject.SetActive(false);
+        if (isFinalBoss)
+        {
+            //여기에 클리어 코드 작성
+            SceneManager.LoadScene("MainScene");
+        }
     }
 }

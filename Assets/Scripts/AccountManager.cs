@@ -20,6 +20,9 @@ public class AccountManager : MonoBehaviour
             Debug.LogWarning("비밀번호가 일치하지 않습니다.");
             return;
         }
+
+
+        /*
         if (PlayerPrefs.HasKey(InputFieldID.text + "_Password"))
         {
             Debug.LogWarning("이미 존재하는 아이디입니다.");
@@ -31,8 +34,10 @@ public class AccountManager : MonoBehaviour
         PlayerPrefs.Save();
 
         Debug.Log("회원가입 성공!");
-
         SceneManager.LoadScene("Login");
+        */
+
+        NetworkManager.apiManager.Register(InputFieldName.text, InputFieldID.text, InputFieldPW.text);
     }
 
     public void OnBackButtonClicked()

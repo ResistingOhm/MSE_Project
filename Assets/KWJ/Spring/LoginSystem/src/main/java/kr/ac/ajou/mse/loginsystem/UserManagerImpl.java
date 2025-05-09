@@ -54,4 +54,8 @@ public class UserManagerImpl implements IUserManager{
         return repo.findAll();
     }
 
+    @Override
+    public boolean isIdExist(String id) {
+        return repo.existsById(id);
+    }
 }

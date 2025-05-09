@@ -9,26 +9,21 @@ public class TitleManager : MonoBehaviour
 
     public void OnClickStartButton()
     {
-        SceneManager.LoadScene("MainScene");
+        if (UserDataManager.udm.IsLogin())
+        {
+            SceneManager.LoadScene("MainScene");
+        } else
+        {
+            SceneManager.LoadScene("Login");
+        }
     }
     public void OnClickLeaderBoardButton()
     {
         SceneManager.LoadScene("LeaderBoard");
     }
-    public void OnClickBackdButton()
-    {
-        SceneManager.LoadScene("Title");
-    }
-    public void OnClickLevelOneButton()
-    {
-        SceneManager.LoadScene("MapOne");
-    }public void OnClickLevelTwoButton()
-    {
-        SceneManager.LoadScene("MapTwo");
-    }
     void Start()
     {
-    creditPanel.SetActive(false); // 씬 시작할 때 꺼줌
+        creditPanel.SetActive(false); // 씬 시작할 때 꺼줌
     }
     public void OnCreditClicked(){
           creditPanel.SetActive(true);

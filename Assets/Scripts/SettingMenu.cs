@@ -33,9 +33,9 @@ public class SettingsMenu : MonoBehaviour
         AudioListener.volume = volumeSlider.value;
         volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
 
-        logoutButton.onClick.AddListener(OnLogout);
-        quitButton.onClick.AddListener(OnQuit);
-        closeButton.onClick.AddListener(CloseSettings);
+        //logoutButton.onClick.AddListener(OnLogout);
+        //quitButton.onClick.AddListener(OnQuit);
+        //closeButton.onClick.AddListener(CloseSettings);
     }
 
     private void Update()
@@ -62,7 +62,9 @@ public class SettingsMenu : MonoBehaviour
 
     public void OnLogout()
     {
+        UserDataManager.udm.UserLogout();
         SceneManager.LoadScene("Login");
+        settingsPanel.SetActive(false);
     }
     public void OnQuit()
     {

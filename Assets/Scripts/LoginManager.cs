@@ -14,6 +14,7 @@ public class LoginManager : MonoBehaviour
         string userID = InputFieldID.text;
         string userPW = InputFieldPW.text;
 
+        /*
         if (!PlayerPrefs.HasKey(InputFieldID.text + "_Password"))
         {
             Debug.LogWarning("존재하지 않는 아이디입니다.");
@@ -29,6 +30,8 @@ public class LoginManager : MonoBehaviour
 
         Debug.Log("로그인 성공!");
         SceneManager.LoadScene("MainScene"); 
+        */
+        NetworkManager.apiManager.LogIn(userID, userPW);
     }
     public void OnAccountButtonClicked(){
         SceneManager.LoadScene("Account");

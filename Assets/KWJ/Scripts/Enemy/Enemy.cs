@@ -75,9 +75,15 @@ public class Enemy : MonoBehaviour
 
         if (deadTime > 2f)
         {
-            gameObject.SetActive(false);
+            enemyDeadEvent();
         }
     }
+
+    virtual protected void enemyDeadEvent()
+    {
+        gameObject.SetActive(false);
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {

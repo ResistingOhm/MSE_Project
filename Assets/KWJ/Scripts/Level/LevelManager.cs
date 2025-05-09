@@ -58,7 +58,7 @@ public class LevelManager : MonoBehaviour
                 int i = Random.Range(0, 4);
                 esm.SpawnEnemies((MoveType)i);
             }
-            if (bossSpawnTimer > BossSpawnTime && bossSpawnNum < 3)
+            if (bossSpawnNum < 3 && bossSpawnTimer > BossSpawnTime)
             {
                 bossSpawnTimer = 0f;
                 esm.SpawnBoss();
@@ -81,6 +81,11 @@ public class LevelManager : MonoBehaviour
     public Vector3 GetPlayerPos()
     {
         return player.transform.position;
+    }
+
+    public int BossSpawnNum()
+    {
+        return bossSpawnNum;
     }
 
 }

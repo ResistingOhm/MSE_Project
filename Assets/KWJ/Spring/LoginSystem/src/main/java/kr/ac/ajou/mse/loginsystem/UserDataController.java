@@ -31,6 +31,7 @@ public class UserDataController {
     @PostMapping(value = "/add", produces = "application/json", consumes = "application/json")
     public ProducedUserData addUserInput(@RequestBody TempUserData tud) throws NoSuchAlgorithmException {        
         UserData result = manager.addUser(tud.getName(), tud.getId(), tud.getPw());
+        if (result == null) return null;
         ProducedUserData pud = new ProducedUserData(result);
         return pud;
     }
@@ -38,6 +39,7 @@ public class UserDataController {
     @GetMapping(value = "/login", produces = "application/json")
     public ProducedUserData tryLogin(@RequestParam String id, @RequestParam String password) throws NoSuchAlgorithmException {
         UserData u = manager.login(id, password);
+        if (u == null) return null;
         ProducedUserData pud = new ProducedUserData(u);
         return pud;
     }
@@ -49,5 +51,11 @@ public class UserDataController {
 
         return manager.fetchAll();
     }
+
+    @GetMapping("/check/id")
+    public boolean isIdExist(@RequestParam String id) {
+        return manager.isIdExist(id);
+    }
+    
 
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainScene : MonoBehaviour
 {
@@ -9,10 +10,16 @@ public class MainScene : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
+    public void OnClickBackdButton()
     {
-        
+        SceneManager.LoadScene("Title");
+    }
+    public void OnClickLevelOneButton()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
+    public void OnClickLevelTwoButton()
+    {
+        SceneManager.LoadScene("GameScene");
     }
 }
