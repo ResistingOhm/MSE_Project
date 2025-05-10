@@ -29,6 +29,7 @@ public class UserManagerImpl implements IUserManager{
         return repo.save(new UserData(uuid, name, id, hashed_password));
     }
 
+    @Override
     public UserData login(String id, String password) throws NoSuchAlgorithmException {
         if (id == null || password == null) {
             return null;
