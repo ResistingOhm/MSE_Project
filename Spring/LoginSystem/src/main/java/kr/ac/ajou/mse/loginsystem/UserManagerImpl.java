@@ -15,18 +15,18 @@ public class UserManagerImpl implements IUserManager{
     private UserDataRepository repo;
 
     @Override
-    public UserData addUser(String name, String id, String password) throws NoSuchAlgorithmException {
-        if (name == null || id == null || password == null) {
+    public UserData addUser(UserData u) throws NoSuchAlgorithmException {
+        if (u == null) {
             return null;
         }
 
-        if (repo.existsById(id)) return null;
+        if (repo.existsById(u.getId())) return null;
 
-        byte[] hashed_password = hashingPassword(password);
+        byte[] hashed_password = hashingPassword(u.getInputpassword());
 
         UUID uuid = UUID.randomUUID();
 
-        return repo.save(new UserData(uuid, name, id, hashed_password));
+        return repo.save(new UserData(uuid, u.getName(), u.getId(), hashed_password));
     }
 
     @Override

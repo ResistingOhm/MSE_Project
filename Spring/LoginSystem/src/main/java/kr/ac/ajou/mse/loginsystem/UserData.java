@@ -5,6 +5,7 @@ import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,14 +26,26 @@ public class UserData {
     @Column(unique = true)
     private String id;  //Unique Value
     private byte[] hashedpassword;
+    private ScoreData highscore;
+    @Transient
+    private String inputpassword;
 
     
 
-    public UserData(String name, String id, byte[] hashed_password) {
+    public UserData(UUID uuid, String name, String id, byte[] hashed_password) {
+        this.uuid = uuid;
         this.name = name;
         this.id = id;
         this.hashedpassword = hashed_password;
     }
+
+
+    public UserData(String name, String id, String inputpassword) {
+        this.name = name;
+        this.id = id;
+        this.inputpassword = inputpassword;
+    }
+
 
     //Comparing between User uses id
     //If same Id, same User.

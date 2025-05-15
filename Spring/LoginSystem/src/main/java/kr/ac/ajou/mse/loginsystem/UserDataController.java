@@ -23,14 +23,14 @@ public class UserDataController {
 
     @PostConstruct
     private void initSetting() throws IOException, NoSuchAlgorithmException {
-        manager.addUser("Keun", "id", "password");
-        manager.addUser("Kim", "id2", "pass");
-        manager.addUser("Lee", "id3", "word");
+        manager.addUser(new UserData("Keun", "id", "password"));
+        manager.addUser(new UserData("Kim", "id2", "pass"));
+        manager.addUser(new UserData("Lee", "id3", "word"));
     }
 
     @PostMapping(value = "/add", produces = "application/json", consumes = "application/json")
-    public ProducedUserData addUserInput(@RequestBody TempUserData tud) throws NoSuchAlgorithmException {        
-        UserData result = manager.addUser(tud.getName(), tud.getId(), tud.getPw());
+    public ProducedUserData addUserInput(@RequestBody UserData ud) throws NoSuchAlgorithmException {        
+        UserData result = manager.addUser(ud);
         if (result == null) return null;
         ProducedUserData pud = new ProducedUserData(result);
         return pud;
