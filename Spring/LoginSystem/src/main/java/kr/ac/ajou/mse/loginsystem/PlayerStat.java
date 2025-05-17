@@ -1,5 +1,6 @@
 package kr.ac.ajou.mse.loginsystem;
 
+import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Embeddable
 public class PlayerStat {
 
     private int hp;

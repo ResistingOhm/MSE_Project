@@ -2,10 +2,15 @@ package kr.ac.ajou.mse.loginsystem;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,9 +31,11 @@ public class UserData {
     @Column(unique = true)
     private String id;  //Unique Value
     private byte[] hashedpassword;
+
+    @OneToOne(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "scoredata_id")
+    @JsonIgnoreProperties({"owner"})
     private ScoreData highscore;
-    @Transient
-    private String inputpassword;
 
     
 
@@ -37,13 +44,14 @@ public class UserData {
         this.name = name;
         this.id = id;
         this.hashedpassword = hashed_password;
+        setHighscore(new ScoreData(-1, -1, new PlayerStat(0,0,0,0,0,0),0,0));
     }
 
-
-    public UserData(String name, String id, String inputpassword) {
-        this.name = name;
-        this.id = id;
-        this.inputpassword = inputpassword;
+    public void setHighscore(ScoreData s) {
+        if(s!=null) {
+            s.setOwner(this);
+            this.highscore = s;
+        }
     }
 
 

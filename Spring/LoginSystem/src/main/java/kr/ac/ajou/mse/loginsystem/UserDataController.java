@@ -19,22 +19,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class UserDataController {
 
     @Autowired
-    private IUserManager manager;
+    private UserManager manager;
 
     @PostConstruct
     private void initSetting() throws IOException, NoSuchAlgorithmException {
-        manager.addUser(new UserData("Keun", "id", "password"));
-        manager.addUser(new UserData("Kim", "id2", "pass"));
-        manager.addUser(new UserData("Lee", "id3", "word"));
+        manager.addUser(new RequestUserData("Keun", "id", "password"));
+        manager.addUser(new RequestUserData("Kim", "id2", "pass"));
+        manager.addUser(new RequestUserData("Lee", "id3", "word"));
     }
 
     @PostMapping(value = "/add", produces = "application/json", consumes = "application/json")
-    public ProducedUserData addUserInput(@RequestBody UserData ud) throws NoSuchAlgorithmException {        
-        UserData result = manager.addUser(ud);
+    public ProducedUserData addUserInput(@RequestBody RequestUserData rud) throws NoSuchAlgorithmException {        
+        UserData result = manager.addUser(rud);
         if (result == null) return null;
         ProducedUserData pud = new ProducedUserData(result);
         return pud;
     }
+
+    @PostMapping(value = "/update/score", produces = "application/json", consumes = "application/json")
+    public ScoreData updateScore(@RequestBody ScoreData s) {
+        return manager.updateScore(s);
+    }
+    
 
     @GetMapping(value = "/login", produces = "application/json")
     public ProducedUserData tryLogin(@RequestParam String id, @RequestParam String password) throws NoSuchAlgorithmException {
@@ -46,16 +52,31 @@ public class UserDataController {
     
     
     //Fetch user.
-    @GetMapping(value = "/fetch/all", produces = "application/json")
+    @GetMapping(value = "/fetch/all/user", produces = "application/json")
     public List<UserData> fetchAllUser() {
 
-        return manager.fetchAll();
+        return manager.fetchAllUserData();
+    }
+
+    @GetMapping(value = "/fetch/all/score", produces = "application/json")
+    public List<ScoreData> fetchAllScore() {
+
+        return manager.fetchAllScoreData();
     }
 
     @GetMapping("/check/id")
     public boolean isIdExist(@RequestParam String id) {
         return manager.isIdExist(id);
     }
+
+    @GetMapping("/leaderboard")
+    public List<ScoreData> fetchLeaderBoard() {
+        return manager.fetchAllValuedScoreData();
+    }
     
+    @GetMapping("/like")
+    public int giveLikeToScore(@RequestParam Long id) {
+        return manager.giveLike(id);
+    }
 
 }

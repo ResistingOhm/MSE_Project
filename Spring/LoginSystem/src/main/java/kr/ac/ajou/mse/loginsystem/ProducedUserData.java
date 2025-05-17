@@ -1,22 +1,20 @@
 package kr.ac.ajou.mse.loginsystem;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
-@AllArgsConstructor
 @ToString
 public class ProducedUserData {
     private String uuid;
     private String name;
     private float highscore;
+    private long scoreid;
 
-    public ProducedUserData(UserData u) {
+    public ProducedUserData (UserData u) {
         this.uuid = u.getUuid().toString();
         this.name = u.getName();
-        this.highscore = 1;//u.getHighscore().getScore();
+        this.highscore = u.getHighscore().getScore();
+        this.scoreid = u.getHighscore().getId();
     }
 }
