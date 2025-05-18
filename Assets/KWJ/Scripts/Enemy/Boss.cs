@@ -60,8 +60,11 @@ public class Boss : Enemy
         gameObject.SetActive(false);
         if (isFinalBoss)
         {
-            //여기에 클리어 코드 작성
-            SceneManager.LoadScene("MainScene");
+            //Here for game clear code
+            LevelManager.LvManager.onGameEnd();
+
         }
     }
+
+    public void SetFInalBoss() { this.isFinalBoss = true; }
 }

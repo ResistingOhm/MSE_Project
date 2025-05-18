@@ -30,6 +30,7 @@ public class ScoreData {
     
     private long score;
     private int enemynum;
+    private int gamelevel;
     @Embedded
     private PlayerStat playerstat;
 
@@ -42,13 +43,23 @@ public class ScoreData {
     @JsonIncludeProperties({"uuid", "name"})
     private UserData owner;
 
-    public ScoreData(long score, int enemynum, PlayerStat playerstat, int min, int sec) {
+    public ScoreData(long score, int enemynum, int gamelevel, PlayerStat playerstat, int min, int sec) {
         this.score = score;
         this.enemynum = enemynum;
+        this.gamelevel = gamelevel;
         this.playerstat = playerstat;
         this.min = min;
         this.sec = sec;
-        this.likenum = 0;
+    }
+
+    public ScoreData(Long id, long score, int enemynum, int gamelevel, PlayerStat playerstat, int min, int sec) {
+        this.id = id;
+        this.score = score;
+        this.enemynum = enemynum;
+        this.gamelevel = gamelevel;
+        this.playerstat = playerstat;
+        this.min = min;
+        this.sec = sec;
     }
 
     public int likeit() {

@@ -114,6 +114,7 @@ public class EnemySpawnManager : MonoBehaviour
         Boss boss = ObjectPoolManager.pm.SpawnFromPool("BSS", spawnPoints[res].transform.position, Quaternion.identity).GetComponent<Boss>();
         boss.setMoveType(MoveType.FOLLOW);
         boss.setDest(LevelManager.LvManager.GetPlayerPos());
+        if(LevelManager.LvManager.BossSpawnNum()==3) boss.SetFInalBoss();
     }
 
     private int GetSpawnPointRanodm()

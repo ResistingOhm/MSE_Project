@@ -8,7 +8,7 @@ import lombok.ToString;
 public class ProducedUserData {
     private String uuid;
     private String name;
-    private float highscore;
+    private long highscore;
     private long scoreid;
 
     public ProducedUserData (UserData u) {

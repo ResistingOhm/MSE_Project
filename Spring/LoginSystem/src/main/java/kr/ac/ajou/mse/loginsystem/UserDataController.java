@@ -59,9 +59,8 @@ public class UserDataController {
     }
 
     @GetMapping(value = "/fetch/all/score", produces = "application/json")
-    public List<ScoreData> fetchAllScore() {
-
-        return manager.fetchAllScoreData();
+    public ScoreDataList fetchAllScore() {
+        return new ScoreDataList(manager.fetchAllScoreData());
     }
 
     @GetMapping("/check/id")
@@ -69,9 +68,9 @@ public class UserDataController {
         return manager.isIdExist(id);
     }
 
-    @GetMapping("/leaderboard")
-    public List<ScoreData> fetchLeaderBoard() {
-        return manager.fetchAllValuedScoreData();
+    @GetMapping(value = "/leaderboard", produces = "application/json")
+    public ScoreDataList fetchLeaderBoard() {
+        return new ScoreDataList(manager.fetchAllValuedScoreData());
     }
     
     @GetMapping("/like")

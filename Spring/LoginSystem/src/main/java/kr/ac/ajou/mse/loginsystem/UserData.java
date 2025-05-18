@@ -44,7 +44,7 @@ public class UserData {
         this.name = name;
         this.id = id;
         this.hashedpassword = hashed_password;
-        setHighscore(new ScoreData(-1, -1, new PlayerStat(0,0,0,0,0,0),0,0));
+        setHighscore(new ScoreData(-1, -1, -1, new PlayerStat(0,0,0,0,0,0),0,0));
     }
 
     public void setHighscore(ScoreData s) {

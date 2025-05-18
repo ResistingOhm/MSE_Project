@@ -1,6 +1,7 @@
 package kr.ac.ajou.mse.loginsystem;
 
-import jakarta.persistence.Embeddable;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,13 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Embeddable
-public class PlayerStat {
+public class ScoreDataList {
 
-    private float hp;
-    private float atk;
-    private float def;
-    private float lck;
-    private float spd;
-    private int lvl;
+    private List<ScoreData> scores;
 }

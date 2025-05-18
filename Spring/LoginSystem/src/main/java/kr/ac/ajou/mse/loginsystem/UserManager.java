@@ -65,15 +65,16 @@ public class UserManager{
 
     public ScoreData updateScore(ScoreData s) {
         UserData u = sRepo.findById(s.getId()).get().getOwner();
-        u.setHighscore(s);
+        ScoreData sd = new ScoreData(s.getId(),s.getScore(),s.getEnemynum(),s.getGamelevel(),s.getPlayerstat(),s.getMin(),s.getSec());
+        u.setHighscore(sd);
         uRepo.save(u);
-        return sRepo.findById(s.getId()).get();
+        return sRepo.findById(sd.getId()).get();
 
         //return sRepo.save(s);  <- Need to update UserData.
     }
 
     public List<ScoreData> fetchAllValuedScoreData() {
-        return sRepo.findTop100ByScoreGreaterThanOrderByScoreDesc(0);
+        return sRepo.findTop100ByGamelevelGreaterThanOrderByScoreDesc(0);
     }
 
     public int giveLike(Long id) {

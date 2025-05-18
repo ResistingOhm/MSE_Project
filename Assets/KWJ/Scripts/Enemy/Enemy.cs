@@ -62,6 +62,8 @@ public class Enemy : MonoBehaviour
                     float y = Random.Range(-0.5f, 0.5f);
                     ObjectPoolManager.pm.SpawnFromPool("EXP", transform.position + new Vector3(x, y, 0), Quaternion.identity);
                 }
+                //Add Score Event here ex) LevelManager.LvManager.ScoreUp(int);
+                LevelManager.LvManager.AddScore(j*10);
             }
 
             Vector3 offset = transform.position - LevelManager.LvManager.GetPlayerPos();
