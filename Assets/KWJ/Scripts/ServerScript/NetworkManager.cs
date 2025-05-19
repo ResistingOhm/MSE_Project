@@ -16,6 +16,8 @@ public class NetworkManager : MonoBehaviour
     private string leaderBoardUrl = "http://localhost:4444/userlogin/leaderboard";
     private string likeScoreUrl = "http://localhost:4444/userlogin/like";
 
+    private string randomjokeUrl = "https://official-joke-api.appspot.com/jokes/random/";
+
     //status
     private bool idCheck = false;
 
@@ -57,6 +59,11 @@ public class NetworkManager : MonoBehaviour
     public void LikeScore(long id)
     {
         StartCoroutine(LikeScoreRequest(id));
+    }
+
+    public void GetRandomJoke(int num)
+    {
+        StartCoroutine(RandomJokeRequest(num));
     }
 
     private IEnumerator LoginRequest(string id, string pw)
@@ -314,5 +321,48 @@ public class NetworkManager : MonoBehaviour
 
         }
 
+    }
+
+    private IEnumerator RandomJokeRequest(int num)
+    {
+        UnityWebRequest webRequest = UnityWebRequest.Get(randomjokeUrl + num);
+
+        // setting header
+        webRequest.SetRequestHeader("Accept", "application/json");
+
+        // executing the request
+        yield return webRequest.SendWebRequest();
+
+        // process the resuls
+        switch (webRequest.result)
+        {
+            case UnityWebRequest.Result.ConnectionError:
+            case UnityWebRequest.Result.DataProcessingError:
+                Debug.LogError("Error: " + webRequest.error);
+                break;
+            case UnityWebRequest.Result.ProtocolError:
+                Debug.LogError("Protocol error: " + webRequest.error);
+                break;
+            case UnityWebRequest.Result.Success:
+                // success! Let's parse the JSON data
+                string json = webRequest.downloadHandler.text;
+                Debug.Log(json);
+                parseRandomJokeResult(json);
+                break;
+
+        }
+
+    }
+
+    private void parseRandomJokeResult(string json)
+    {
+        json = "{\"randomjokes\":" + json + "}";
+        RandomJokeListData j = JsonUtility.FromJson<RandomJokeListData>(json);
+
+        foreach(RandomJokeData joke in j.randomjokes)
+        {
+            Debug.Log(joke.setup + " / " + joke.punchline);
+            //Call some method to get result
+        }
     }
 }
