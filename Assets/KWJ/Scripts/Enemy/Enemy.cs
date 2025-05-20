@@ -16,7 +16,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected GameObject expPrefab;
     protected bool isAlive = true;
     private float deadTime = 0f;
+    [SerializeField]
     private float currentHp = 0f;
+    [SerializeField]
+    private bool isPoison = false;
+    private float poisonTime = 0f;
+    private float poisonDamageTime = 0.5f;
+    private float currentPoisonTime = 0f;
 
     protected Vector3 dest; //destination for Horde, Wall
     protected MoveType movetype = MoveType.FOLLOW;
@@ -48,6 +54,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            PoisonDamage(3f);
+        }
+
         if (isAlive)
         {
             if (currentHp < 0f)
@@ -64,6 +75,21 @@ public class Enemy : MonoBehaviour
                 }
                 //Add Score Event here ex) LevelManager.LvManager.ScoreUp(int);
                 LevelManager.LvManager.AddScore(j*10);
+            }
+
+            if (isPoison)
+            {
+                currentPoisonTime += Time.deltaTime;
+                if (currentPoisonTime > poisonDamageTime)
+                {
+                    currentHp -= 0.5f;
+                    poisonTime -= poisonDamageTime;
+                    currentPoisonTime = 0f;
+                }
+                if (currentPoisonTime > poisonTime)
+                {
+                    isPoison = false;
+                }
             }
 
             Vector3 offset = transform.position - LevelManager.LvManager.GetPlayerPos();
@@ -124,6 +150,13 @@ public class Enemy : MonoBehaviour
         isAlive = false;
         rb.velocity = Vector2.zero;
         currentHp = 0;
+    }
+
+    public void PoisonDamage(float duration)
+    {
+        currentPoisonTime = 0f;
+        poisonTime = duration;
+        isPoison = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
