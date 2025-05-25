@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
     protected Rigidbody2D rb;
     protected Collider2D c;
 
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
     public void setDest(Vector3 v)
     {
         dest = (v - transform.position).normalized;
@@ -49,6 +51,14 @@ public class Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         c = GetComponent<Collider2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    void Start()
+    {
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isDead", false);
     }
 
     // Update is called once per frame
@@ -61,11 +71,17 @@ public class Enemy : MonoBehaviour
 
         if (isAlive)
         {
+            if (rb.velocity.magnitude > 0) { animator.SetBool("isMoving", true); }
+            if (rb.velocity.magnitude <= 0) { animator.SetBool("isMoving", false); }
+            if (rb.velocity.x > 0) { spriteRenderer.flipX = false; }
+            if (rb.velocity.x < 0) { spriteRenderer.flipX = true; }
+
             if (currentHp < 0f)
             {
                 isAlive = false;
                 c.enabled = false;
                 rb.velocity = Vector2.zero;
+                animator.SetBool("isDead", true);
                 int j = enemyData.Exp * LevelManager.LvManager.stageLv.EXP;
                 for (int i = 0; i < j; i++)
                 {
