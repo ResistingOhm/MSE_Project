@@ -608,7 +608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c82e7d1ea93d814baea5eed525dba1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  esm: {fileID: 0}
+  esm: {fileID: 835338666}
   player: {fileID: 0}
   stageLv: {fileID: 11400000, guid: 35f4b98456d3d8f409277ee212280f7a, type: 2}
   levelOne: {fileID: 0}
