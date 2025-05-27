@@ -15,11 +15,11 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene.unity
     guid: 69e45a81d1bdd4351afbc53127fdf813
   - enabled: 1
-    path: Assets/Scenes/Login.unity
-    guid: 170522c9e5fff4e1aac87882f1c00428
-  - enabled: 1
     path: Assets/Scenes/LeaderBoard.unity
     guid: b0e175015b71d47aa99cc923c328161c
+  - enabled: 1
+    path: Assets/Scenes/Login.unity
+    guid: 170522c9e5fff4e1aac87882f1c00428
   - enabled: 1
     path: Assets/Scenes/Setting.unity
     guid: b77611e0cff5640698889c241cf0c74f

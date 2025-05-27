@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public PlayerStatusUI statusUI;
+    public GameoverManager gameoverManager;
+    public int score; // ì¶”ê°€ìš©
+
     public PlayerStat stat;
     public Vector2 inputVec;
     public float speed;
+    
     public EnemyScanner enemyscanner;
 
     Rigidbody2D rigid;
     SpriteRenderer spriter;
 
+    
+    
     void Awake()
     {
+        statusUI = GetComponent<PlayerStatusUI>();
+
         rigid = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();
         enemyscanner = GetComponent<EnemyScanner>();
@@ -42,10 +51,16 @@ public class Player : MonoBehaviour
     public void ReceiveDamage(float dmg)
     {
         stat.TakeDamage(dmg);
-        if (stat.IsDead())
-        {
-            Debug.Log("ÇÃ·¹ÀÌ¾î »ç¸Á");
-            // »ç¸Á 
+        statusUI?.UpdateHPbar();
+
+        if (stat.IsDead()){
+            Debug.Log("Game over");
+            if (gameoverManager != null){
+                gameoverManager.ShowGameOver(score);
+            }
+            else{
+            Debug.LogError("âŒ gameoverManager ì—°ê²° ë¶ˆê°€");
+            }
         }
     }
     public void OnTriggerEnter2D(Collider2D collision)
@@ -70,7 +85,12 @@ public class Player : MonoBehaviour
 
     public void OnLevelUp()
     {
-        Debug.Log("·¹º§¾÷! ¿Ã¸± ½ºÅÈÀ» ¼±ÅÃÇÏ¼¼¿ä. (1: HP, 2: °ø°İ·Â, 3: ¹æ¾î·Â, 4: Çà¿î, 5: ÀÌµ¿¼Óµµ)");
+        Debug.Log("(level up ! choose one. (1: HP, 2: attack, 3: defense, 4: luck, 5: moveSpeed)");
+        if (statusUI != null){
+            statusUI.UpdateLevel();
+            statusUI.UpdateHPbar();
+            statusUI.UpdateExpbar();
+        }
         StartCoroutine(WaitForStatInput());
     }
 
