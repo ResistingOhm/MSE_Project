@@ -17,25 +17,12 @@ public class AccountManager : MonoBehaviour
         
         if (InputFieldPW.text != InputFieldCheckPW.text)
         {
-            Debug.LogWarning("비밀번호가 일치하지 않습니다.");
+            PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.warning,"This Password does not correct. Please check password."
+            );
+            // Debug.LogWarning("check the password");
             return;
         }
-
-
-        /*
-        if (PlayerPrefs.HasKey(InputFieldID.text + "_Password"))
-        {
-            Debug.LogWarning("이미 존재하는 아이디입니다.");
-            return;
-        }
-
-        PlayerPrefs.SetString(InputFieldID.text + "_Password", InputFieldPW.text);
-        PlayerPrefs.SetString(InputFieldID.text + "_Name", InputFieldName.text);
-        PlayerPrefs.Save();
-
-        Debug.Log("회원가입 성공!");
-        SceneManager.LoadScene("Login");
-        */
 
         NetworkManager.apiManager.Register(InputFieldName.text, InputFieldID.text, InputFieldPW.text);
     }

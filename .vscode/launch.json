@@ -2,9 +2,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "LoginsystemApplication",
+            "request": "launch",
+            "mainClass": "kr.ac.ajou.mse.loginsystem.LoginsystemApplication",
+            "projectName": "projectlogin"
+        },
+        {
             "name": "Attach to Unity",
             "type": "vstuc",
             "request": "attach"
         }
-     ]
+    ]
 }

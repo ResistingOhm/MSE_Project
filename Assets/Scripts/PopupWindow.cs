@@ -22,10 +22,24 @@ public class PopupWindow : MonoBehaviour {
     public Button Btn_Exit;
     public Button Btn_OK;
     public Button Btn_Cancle;
+    
 
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }   
 	// Use this for initialization
 	void Start ()
     {
+        popupView.SetActive(false);
 
         if(instance == null)
             instance = this;
@@ -93,30 +107,6 @@ public class PopupWindow : MonoBehaviour {
             m_Msg.text = msg;
             m_MessageType.color = Color.white;
         }
-    }
-        void TryLogin(string inputId, string inputPw){ //ex
-
-        string correctId = "id";
-        string correctPw = "pw";
-
-        if (inputId != correctId) 
-        {
-            PopupWindow.instance.PopupWindowOpen(
-                PopupWindow.MsgType.error,
-                "invailed ID"
-            );
-            return;
-        }
-
-        if (inputPw != correctPw)
-        {
-            PopupWindow.instance.PopupWindowOpen(
-                PopupWindow.MsgType.warning,
-                "Invailed PW"
-            );
-            return;
-        }
-        Debug.Log("login success");
     }
 
 }

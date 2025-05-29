@@ -54,8 +54,9 @@ public class NetworkManager : MonoBehaviour
 
         if (!idCheck)
         {
-            Debug.LogWarning("¡∏¿Á«œ¡ˆ æ ¥¬ æ∆¿Ãµ¿‘¥œ¥Ÿ.");
-            yield break;
+            PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.warning,"This ID does not exist. Please register first."
+            );
         }
 
         UnityWebRequest webRequest = UnityWebRequest.Get(loginUrl+"?id="+id+"&password="+pw);
@@ -71,10 +72,14 @@ public class NetworkManager : MonoBehaviour
         {
             case UnityWebRequest.Result.ConnectionError:
             case UnityWebRequest.Result.DataProcessingError:
-                Debug.LogError("Error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,"Error: " + webRequest.error);
+                // Debug.LogError("Error: " + webRequest.error);
                 break;
             case UnityWebRequest.Result.ProtocolError:
-                Debug.LogError("Protocol error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,"Protocol error: " + webRequest.error);
+                // Debug.LogError("Protocol error: " + webRequest.error);
                 break;
             case UnityWebRequest.Result.Success:
                 // success! Let's parse the JSON data
@@ -82,11 +87,15 @@ public class NetworkManager : MonoBehaviour
                 //Debug.Log(json);
                 if (json == null)
                 {
-                    Debug.Log("∫Òπ–π¯»£∞° ∆≤∏≥¥œ¥Ÿ.");
+                    PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,"Incorrect password");
+                    // Debug.Log("ÎπÑÎ∞ÄÎ≤àÌò∏ ÌãÄÎ¶º.");
                     break;
                 }
                 parseUserDataResult(json);
-                Debug.Log("∑Œ±◊¿Œ º∫∞¯!");
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.notice,"Login successful");
+                // Debug.Log("Î°úÍ∑∏Ïù∏ ÏÑ±Í≥µ!");
                 SceneManager.LoadScene("MainScene");
                 break;
 
@@ -118,7 +127,7 @@ public class NetworkManager : MonoBehaviour
 
         if (idCheck)
         {
-            Debug.LogWarning("¿ÃπÃ ¡∏¿Á«œ¥¬ æ∆¿Ãµ¿‘¥œ¥Ÿ.");
+            PopupWindow.instance.PopupWindowOpen(PopupWindow.MsgType.warning,"This ID is already taken. Please choose another one.");
             yield break;
         }
 
@@ -136,10 +145,16 @@ public class NetworkManager : MonoBehaviour
         {
             case UnityWebRequest.Result.ConnectionError:
             case UnityWebRequest.Result.DataProcessingError:
-                Debug.LogError("Error: " + webRequest.error);
+                // Debug.LogError("Error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,
+                "Error: " + webRequest.error);
                 break;
             case UnityWebRequest.Result.ProtocolError:
-                Debug.LogError("Protocol error: " + webRequest.error);
+                // Debug.LogError("Error: " + webRequest.error);
+            PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,
+                "Error: " + webRequest.error);
                 break;
             case UnityWebRequest.Result.Success:
                 // success! Let's parse the JSON data
@@ -147,10 +162,15 @@ public class NetworkManager : MonoBehaviour
                 //Debug.Log(json);
                 if (json == null)
                 {
-                    Debug.Log("π∫∞° πÆ¡¶∞° πﬂª˝«ﬂæÓø‰");
+                    PopupWindow.instance.PopupWindowOpen(
+                    PopupWindow.MsgType.error,
+                    "Failed to register.");
                     break;
                 }
-                Debug.Log("»∏ø¯∞°¿‘ º∫∞¯!");
+                PopupWindow.instance.PopupWindowOpen(
+                    PopupWindow.MsgType.notice,
+                    "Registration successful!");
+                // Debug.Log("Registration successful!");
                 SceneManager.LoadScene("Login");
                 break;
 
