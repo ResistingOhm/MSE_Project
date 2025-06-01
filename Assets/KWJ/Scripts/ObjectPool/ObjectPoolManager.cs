@@ -18,6 +18,8 @@ public class ObjectPoolManager : MonoBehaviour
     private ObjectPool exp;
     [SerializeField]
     private ObjectPool bullet;
+    [SerializeField]
+    private ObjectPool rosethorn;
 
 
     public Dictionary<string, ObjectPool> poolDictionary;
@@ -33,6 +35,7 @@ public class ObjectPoolManager : MonoBehaviour
             { "BSS", boss },
             { "EXP", exp },
             { "BLT", bullet },
+            { "RTH", rosethorn },
         };
     }
 

@@ -37,7 +37,7 @@ public class RoseThorn : MonoBehaviour
             Enemy enemy = col.GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.SendMessage("PoisonDamage", poisonDuration, SendMessageOptions.DontRequireReceiver);
+                enemy.PoisonDamage(poisonDuration);
             }
         }
     }

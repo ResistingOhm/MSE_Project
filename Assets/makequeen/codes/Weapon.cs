@@ -91,7 +91,7 @@ public class Weapon : MonoBehaviour
 
     void CastRoseThorn()
     {
-        Transform aoe = ObjectPoolManager.pm.SpawnFromPool("RoseThorn", transform.position, Quaternion.identity).transform;
+        Transform aoe = ObjectPoolManager.pm.SpawnFromPool("RTH", transform.position, Quaternion.identity).transform;
         aoe.position = transform.position;
 
         float totalDamage = damage + player.stat.attack;

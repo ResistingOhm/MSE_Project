@@ -467,6 +467,10 @@ MonoBehaviour:
   inputVec: {x: 0, y: 0}
   speed: 4
   enemyscanner: {fileID: 0}
+  hasBerserkBoost: 0
+  hasSprintSurge: 0
+  hasRoseThorn: 0
+  hasSpinBlade: 0
 --- !u!70 &666036595
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -742,6 +746,52 @@ MonoBehaviour:
   EnemySpawnTime: 5
   BossSpawnTime: 300
   timerText: {fileID: 2011734393}
+--- !u!1 &815885493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 815885494}
+  - component: {fileID: 815885495}
+  m_Layer: 0
+  m_Name: RoseThornPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &815885494
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815885493}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1914487647}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &815885495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815885493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c929f667b8b764a448ee4eb323d44935, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
+  size: 10
 --- !u!1 &835338664
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,6 +1259,8 @@ MonoBehaviour:
   damage: 10
   count: 1
   speed: 0
+  roseThornTimer: 0
+  roseThornInterval: 5
 --- !u!1001 &1716900922
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1414,6 +1466,7 @@ MonoBehaviour:
   boss: {fileID: 44552022}
   exp: {fileID: 704621546}
   bullet: {fileID: 1073085481}
+  rosethorn: {fileID: 0}
 --- !u!4 &1914487647
 Transform:
   m_ObjectHideFlags: 0
@@ -1433,6 +1486,7 @@ Transform:
   - {fileID: 44552021}
   - {fileID: 704621545}
   - {fileID: 1073085480}
+  - {fileID: 815885494}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2011734391
