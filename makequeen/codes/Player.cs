@@ -65,8 +65,8 @@ public class Player : MonoBehaviour
         stat.TakeDamage(dmg);
         if (stat.IsDead())
         {
-            Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½");
-            // ï¿½ï¿½ï¿½ 
+            Debug.Log("ÇÃ·¹ÀÌ¾î »ç¸Á");
+            // »ç¸Á 
         }
     }
     public void OnTriggerEnter2D(Collider2D collision)
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
 
     public void OnLevelUp()
     {
-        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½! ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½. (1: HP, 2: ï¿½ï¿½ï¿½Ý·ï¿½, 3: ï¿½ï¿½ï¿½ï¿½, 4: ï¿½ï¿½ï¿½, 5: ï¿½Ìµï¿½ï¿½Óµï¿½)");
+        Debug.Log("·¹º§¾÷! ¿Ã¸± ½ºÅÈÀ» ¼±ÅÃÇÏ¼¼¿ä. (1: HP, 2: °ø°Ý·Â, 3: ¹æ¾î·Â, 4: Çà¿î, 5: ÀÌµ¿¼Óµµ)");
         StartCoroutine(WaitForStatInput());
     }
 
@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void HandleBerserkBoost() //ï¿½ï¿½ï¿½ï¿½ï¿½ð¸¶´ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½
+    void HandleBerserkBoost() //ÀÏÁ¤Äð¸¶´Ù °ø°Ý·Â ¼¼Áü
     {
         if (!hasBerserkBoost) return;
 
@@ -154,7 +154,7 @@ public class Player : MonoBehaviour
         isBerserkActive = false;
     }
 
-    void HandleSprintSurge() //ï¿½ï¿½ï¿½ï¿½ ï¿½ð¸¶´ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void HandleSprintSurge() //ÀÏÁ¤ Äð¸¶´Ù ¼Óµµ »¡¶óÁü
     {
         if (!hasSprintSurge) return;
 
@@ -191,37 +191,3 @@ public class Player : MonoBehaviour
 
 }
 
-
-/*
- Boss.csï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½!...
- public enum BossRewardType
-{
-    None,
-    RoseThorn,
-    BerserkBoost,
-    SprintSurge
-}
-
-public BossRewardType rewardType = BossRewardType.None;
-
-override protected void enemyDeadEvent()
-{
-    gameObject.SetActive(false);
-
-    if (GameManager.instance != null && GameManager.instance.player != null)
-    {
-        switch (rewardType)
-        {
-            case BossRewardType.RoseThorn:
-                GameManager.instance.player.LearnRoseThorn();
-                break;
-            case BossRewardType.BerserkBoost:
-                GameManager.instance.player.LearnBerserkBoost();
-                break;
-            case BossRewardType.SprintSurge:
-                GameManager.instance.player.LearnSprintSurge();
-                break;
-        }
-    }
- 
- */
