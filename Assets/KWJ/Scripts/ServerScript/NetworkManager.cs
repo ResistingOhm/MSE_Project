@@ -25,7 +25,7 @@ public class NetworkManager : MonoBehaviour
     {
         if (apiManager != null && apiManager != this)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {

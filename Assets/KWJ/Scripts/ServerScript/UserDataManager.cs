@@ -23,7 +23,7 @@ public class UserDataManager : MonoBehaviour
     {
         if (udm != null && udm != this)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
