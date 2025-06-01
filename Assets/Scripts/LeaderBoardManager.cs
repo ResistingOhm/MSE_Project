@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class LeaderBoardManager : MonoBehaviour
 {
+    public static LeaderBoardManager instance;
+    /*
     [System.Serializable]
     public class EntryData
     {
@@ -13,14 +17,28 @@ public class LeaderBoardManager : MonoBehaviour
         public int level;
         public int score;
     }
+    */
+    public Transform entryContainer;
+    //public Transform entryTemplate;  
+    public GameObject entryPrefab;
 
-    public Transform entryContainer; 
-    public Transform entryTemplate;  
+    //private List<Transform> entryTransformList = new();
+    private ScoreDataList scoreDataList;
 
-    private List<Transform> entryTransformList = new();
-
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = GetComponent<LeaderBoardManager>();
+        }
+    }
     void Start()
     {
+        /*
         List<EntryData> dataList = new List<EntryData>()
         {
             new EntryData() { name = "Alice", level = 1, score = 300 },
@@ -29,8 +47,29 @@ public class LeaderBoardManager : MonoBehaviour
         };
         dataList.Sort((a, b) => b.score.CompareTo(a.score));
         Refresh(dataList);
+        */
+
+        NetworkManager.apiManager.GetLeaderBoard();
     }
 
+    private void RefreshLeaderBoard()
+    {
+        foreach (Transform entry in entryContainer)
+        {
+            if (entry != entryContainer) Destroy(entry.gameObject);
+        }
+
+        for (int i=0; i<scoreDataList.scores.Count; i++)
+        {
+            LeaderBoardScoreData score = scoreDataList.scores[i];
+
+            ScoreEntry info = Instantiate(entryPrefab).GetComponent<ScoreEntry>();
+            info.transform.SetParent(entryContainer);
+            info.SetEntry(score,i+1);
+        }
+
+    }
+    /*
     public void Refresh(List<EntryData> dataList)
     {
         foreach (Transform entry in entryTransformList)
@@ -57,6 +96,14 @@ public class LeaderBoardManager : MonoBehaviour
             entryTransformList.Add(entry);
         }
     }
+    */
+
+    public void SetList(ScoreDataList sdl)
+    {
+        this.scoreDataList = sdl;
+        RefreshLeaderBoard();
+    }
+
     public void OnBackButtonClicked(){
         SceneManager.LoadScene("Title");
     }

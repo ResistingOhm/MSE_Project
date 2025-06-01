@@ -12,6 +12,24 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer spriter;
 
+    public bool hasBerserkBoost = false;
+    public bool hasSprintSurge = false;
+
+    float berserkTimer = 0f;
+    float sprintTimer = 0f;
+
+    bool isBerserkActive = false;
+    bool isSprintActive = false;
+
+    float berserkDuration = 3f;
+    float sprintDuration = 3f;
+
+    float berserkCooldown = 10f;
+    float sprintCooldown = 10f;
+
+    float berserkBuffAmount = 10f;
+    float sprintBuffAmount = 2f;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -24,6 +42,9 @@ public class Player : MonoBehaviour
     {
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.y = Input.GetAxisRaw("Vertical");
+
+        HandleBerserkBoost();
+        HandleSprintSurge();
     }
 
     private void FixedUpdate()
@@ -44,8 +65,8 @@ public class Player : MonoBehaviour
         stat.TakeDamage(dmg);
         if (stat.IsDead())
         {
-            Debug.Log("ÇÃ·¹ÀÌ¾î »ç¸Á");
-            // »ç¸Á 
+            Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½");
+            // ï¿½ï¿½ï¿½ 
         }
     }
     public void OnTriggerEnter2D(Collider2D collision)
@@ -70,7 +91,7 @@ public class Player : MonoBehaviour
 
     public void OnLevelUp()
     {
-        Debug.Log("·¹º§¾÷! ¿Ã¸± ½ºÅÈÀ» ¼±ÅÃÇÏ¼¼¿ä. (1: HP, 2: °ø°Ý·Â, 3: ¹æ¾î·Â, 4: Çà¿î, 5: ÀÌµ¿¼Óµµ)");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½! ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½. (1: HP, 2: ï¿½ï¿½ï¿½Ý·ï¿½, 3: ï¿½ï¿½ï¿½ï¿½, 4: ï¿½ï¿½ï¿½, 5: ï¿½Ìµï¿½ï¿½Óµï¿½)");
         StartCoroutine(WaitForStatInput());
     }
 
@@ -111,4 +132,96 @@ public class Player : MonoBehaviour
         }
     }
 
+    void HandleBerserkBoost() //ï¿½ï¿½ï¿½ï¿½ï¿½ð¸¶´ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½
+    {
+        if (!hasBerserkBoost) return;
+
+        berserkTimer += Time.deltaTime;
+
+        if (!isBerserkActive && berserkTimer >= berserkCooldown)
+        {
+            isBerserkActive = true;
+            berserkTimer = 0f;
+            stat.attack += berserkBuffAmount;
+            StartCoroutine(ResetBerserk());
+        }
+    }
+
+    IEnumerator ResetBerserk()
+    {
+        yield return new WaitForSeconds(berserkDuration);
+        stat.attack -= berserkBuffAmount;
+        isBerserkActive = false;
+    }
+
+    void HandleSprintSurge() //ï¿½ï¿½ï¿½ï¿½ ï¿½ð¸¶´ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    {
+        if (!hasSprintSurge) return;
+
+        sprintTimer += Time.deltaTime;
+
+        if (!isSprintActive && sprintTimer >= sprintCooldown)
+        {
+            isSprintActive = true;
+            sprintTimer = 0f;
+            speed += sprintBuffAmount;
+            StartCoroutine(ResetSprint());
+        }
+    }
+
+    IEnumerator ResetSprint() 
+    {
+        yield return new WaitForSeconds(sprintDuration);
+        speed -= sprintBuffAmount;
+        isSprintActive = false;
+    }
+
+    public bool hasRoseThorn = false;
+    public void LearnRoseThorn()
+    {
+        hasRoseThorn = true;
+    }
+
+    public bool hasSpinBlade = false;
+    public void LearnSpinBlade()
+    {
+        hasSpinBlade = true;
+    }
+
+
 }
+
+
+/*
+ Boss.csï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½!...
+ public enum BossRewardType
+{
+    None,
+    RoseThorn,
+    BerserkBoost,
+    SprintSurge
+}
+
+public BossRewardType rewardType = BossRewardType.None;
+
+override protected void enemyDeadEvent()
+{
+    gameObject.SetActive(false);
+
+    if (GameManager.instance != null && GameManager.instance.player != null)
+    {
+        switch (rewardType)
+        {
+            case BossRewardType.RoseThorn:
+                GameManager.instance.player.LearnRoseThorn();
+                break;
+            case BossRewardType.BerserkBoost:
+                GameManager.instance.player.LearnBerserkBoost();
+                break;
+            case BossRewardType.SprintSurge:
+                GameManager.instance.player.LearnSprintSurge();
+                break;
+        }
+    }
+ 
+ */

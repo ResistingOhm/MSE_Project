@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -12,7 +13,10 @@ public class LevelManager : MonoBehaviour
 
     public LevelData stageLv;
 
-    public float EnemySpawnTime = 5f;
+    public LevelData levelOne;
+    public LevelData levelTwo;
+
+    public float EnemySpawnTime = 3f;
     public float BossSpawnTime = 300f;
     public TextMeshProUGUI timerText;
 
@@ -23,6 +27,12 @@ public class LevelManager : MonoBehaviour
 
     private int bossSpawnNum = 0;
 
+    private long score = 0;
+    private int enemynum = 0;
+    private int gamelevel = 1;
+
+    private int min = 0;
+    private int sec = 0;
 
     void Awake()
     {
@@ -37,6 +47,8 @@ public class LevelManager : MonoBehaviour
     }
     void Start()
     {
+        if (UserDataManager.udm.SelectedLevel()) { stageLv = levelOne; gamelevel = 1; }
+        else { stageLv = levelTwo; gamelevel = 2; }
         onStartGame();
     }
     // Update is called once per frame
@@ -48,8 +60,8 @@ public class LevelManager : MonoBehaviour
             enemySpawnTimer += Time.deltaTime;
             bossSpawnTimer += Time.deltaTime;
 
-            int min = (int)Mathf.Floor(currentTimer / 60);
-            int sec = (int)Mathf.Floor(currentTimer % 60);
+            min = (int)Mathf.Floor(currentTimer / 60);
+            sec = (int)Mathf.Floor(currentTimer % 60);
             timerText.text = string.Format("{0:00}:{1:00}", min, sec);
 
             if (enemySpawnTimer > EnemySpawnTime)
@@ -61,8 +73,8 @@ public class LevelManager : MonoBehaviour
             if (bossSpawnNum < 3 && bossSpawnTimer > BossSpawnTime)
             {
                 bossSpawnTimer = 0f;
+                ++bossSpawnNum;
                 esm.SpawnBoss();
-                bossSpawnNum++;
             }
             if (currentTimer > 90000)
             {
@@ -78,6 +90,16 @@ public class LevelManager : MonoBehaviour
         currentTimer = 0;
         isGamePlaying = true;
     }
+
+    public void onGameEnd()
+    {
+        isGamePlaying = false;
+        //Show UI
+        if (score > UserDataManager.udm.GetHighscore())
+        {
+            NetworkManager.apiManager.UpdateScore(UserDataManager.udm.GetScoreId(),score, enemynum, gamelevel, new PlayerStatData(player.stat), min, sec);
+        }
+    }
     public Vector3 GetPlayerPos()
     {
         return player.transform.position;
@@ -86,6 +108,11 @@ public class LevelManager : MonoBehaviour
     public int BossSpawnNum()
     {
         return bossSpawnNum;
+    }
+
+    public void AddScore(int i)
+    {
+        score += i;
     }
 
 }

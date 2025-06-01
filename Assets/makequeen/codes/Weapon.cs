@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -11,6 +12,8 @@ public class Weapon : MonoBehaviour
     public float speed;
     float timer;
     Player player;
+    public float roseThornTimer = 0f;
+    public float roseThornInterval = 5f;
 
     private void Awake()
     {
@@ -25,6 +28,25 @@ public class Weapon : MonoBehaviour
     {
         switch (id)
         {
+            case 1: // Rose Thorn 독뎀
+                if (!player.hasRoseThorn)
+                    return;
+
+                roseThornTimer += Time.deltaTime;
+                if (roseThornTimer >= roseThornInterval)
+                {
+                    roseThornTimer = 0f;
+                    CastRoseThorn();
+                }
+                break;
+
+            case 2:
+                if (!player.hasSpinBlade) 
+                    return;
+
+                transform.Rotate(Vector3.back * speed * Time.deltaTime);
+                break;
+
             default:
                 timer += Time.deltaTime;
 
@@ -39,6 +61,11 @@ public class Weapon : MonoBehaviour
     public void Init()
     {
         switch (id) {
+            case 2: //회전무기
+                speed = 150;
+                Batch();
+                break;
+
             default:
                 speed = 1.8f;
                 break;
@@ -60,5 +87,28 @@ public class Weapon : MonoBehaviour
 
         float totalDamage = damage + player.stat.attack;
         bullet.GetComponent<Bullet>().Init(damage, count, dir);
+    }
+
+    void CastRoseThorn()
+    {
+        Transform aoe = ObjectPoolManager.pm.SpawnFromPool("RTH", transform.position, Quaternion.identity).transform;
+        aoe.position = transform.position;
+
+        float totalDamage = damage + player.stat.attack;
+        aoe.GetComponent<RoseThorn>().damage = totalDamage;
+    }
+
+    void Batch() {
+        for (int index = 0; index < count; index++) {
+            Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
+            bullet.parent = transform;
+
+            Vector3 rotVec = Vector3.forward * 360 * index / count;
+            bullet.Rotate(rotVec);
+            bullet.Translate(bullet.up * 1.5f, Space.World);
+
+            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero);
+
+        }
     }
 }

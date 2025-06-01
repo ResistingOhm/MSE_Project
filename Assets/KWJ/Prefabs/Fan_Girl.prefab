@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5448930422580769911}
   - component: {fileID: 8802225235287800455}
   - component: {fileID: -2365190087670366649}
+  - component: {fileID: 7140291944512516517}
   m_Layer: 6
   m_Name: Fan_Girl
   m_TagString: Enemy
@@ -77,8 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: -510911131713577018, guid: 26402d272a31d394892a09484df1e87f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,6 +103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: b2d97f5d0d8e2b44c97fee7d7bea0ce1, type: 2}
   expPrefab: {fileID: 7525690456850355176, guid: cee5071bfcfa0414f8aff19f6ee49a8c, type: 3}
+  currentHp: 0
+  isPoison: 0
 --- !u!61 &5448930422580769911
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -134,18 +137,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.03, y: 0.12}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0.45000002}
+    oldSize: {x: 0.875, y: 1.25}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8, y: 1.1}
   m_EdgeRadius: 0
 --- !u!50 &8802225235287800455
 Rigidbody2D:
@@ -186,3 +189,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20342eade14596546a452ae463d81a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &7140291944512516517
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3662175237616204373}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fb206a9bf2f3bfa47ad000676d868cfa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

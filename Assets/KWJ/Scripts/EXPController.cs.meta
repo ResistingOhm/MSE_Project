@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 3cf0dab57d14f1546bcd2c5144b9819e
+<<<<<<<< HEAD:Assets/KWJ/Scripts/EXPController.cs.meta
+guid: 4aa37b439f889e74ca1b784af571e5ac
+========
+guid: e3f2ff82181b864449f973bbdcd65186
+>>>>>>>> ChoiMihyun:Assets/makequeen/codes/RandomBox.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

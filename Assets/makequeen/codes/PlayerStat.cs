@@ -8,8 +8,8 @@ public class PlayerStat : MonoBehaviour
     public float maxHP = 100f;
     public float currentHP = 100f;
     public float attack = 10f;
-    public float defense = 5f;  // ¹æ¾î·Â
-    public float luck = 0f;     // Çà¿î
+    public float defense = 5f;  // ï¿½ï¿½ï¿½ï¿½
+    public float luck = 0f;     // ï¿½ï¿½ï¿½
     public float moveSpeed = 5f;
 
     public int level = 1;
@@ -22,7 +22,7 @@ public class PlayerStat : MonoBehaviour
     }
     public void TakeDamage(float dmg)
     {
-        float finalDmg = Mathf.Max(dmg - defense, 1); // ÃÖ¼Ò 1 µ¥¹ÌÁö´Â ¹ÞÀ½
+        float finalDmg = Mathf.Max(dmg - defense, 1); // ï¿½Ö¼ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         currentHP -= finalDmg;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
     }
@@ -45,10 +45,16 @@ public class PlayerStat : MonoBehaviour
     void LevelUp()
     {
         level++;
-        maxExp *= 1.2f; // Á¡Á¡ ·¹º§¾÷¿¡ ÇÊ¿äÇÑ °æÇèÄ¡ Áõ°¡
-        Debug.Log("·¹º§¾÷! ÇöÀç ·¹º§: " + level);
-        // ½ºÅÈ°­È­uiÇÊ¿ä...
+        maxExp *= 1.2f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + level);
+        // ï¿½ï¿½ï¿½È°ï¿½È­uiï¿½Ê¿ï¿½...
         LevelManager.LvManager.player.OnLevelUp(); 
+    }
+
+    public void Heal(float amount)
+    {
+        currentHP += amount;
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
     }
 
 
