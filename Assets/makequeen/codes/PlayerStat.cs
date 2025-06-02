@@ -17,19 +17,22 @@ public class PlayerStat : MonoBehaviour
     public float maxExp = 10f;
 
     public PlayerStatusUI statusUI;
-    void Start(){
+
+    void Start()
+    {
         statusUI = GetComponent<PlayerStatusUI>();
-        
     }
+
     public void ResetHP()
     {
         currentHP = maxHP;
-         if (statusUI != null)
+        if (statusUI != null)
             statusUI.UpdateHPbar();
     }
+
     public void TakeDamage(float dmg)
     {
-        float finalDmg = Mathf.Max(dmg - defense, 1);
+        float finalDmg = Mathf.Max(dmg - defense, 1); // 최소 1은 데미지를 받게 함
         currentHP -= finalDmg;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
     }
@@ -49,25 +52,29 @@ public class PlayerStat : MonoBehaviour
         }
     }
 
-    void LevelUp(){
+    void LevelUp()
+    {
         level++;
-        maxExp *= 1.2f; 
+        maxExp *= 1.2f;
 
-        float hpIncrease = 20f; //level up 
+        float hpIncrease = 20f;
         maxHP += hpIncrease;
-        currentHP = maxHP; 
+        currentHP = maxHP;
 
-        if (statusUI != null){
+        if (statusUI != null)
+        {
             statusUI.UpdateHPbar();
             statusUI.UpdateLevel();
         }
-            
 
         Debug.Log("level up ! : " + level);
-        
+
         LevelManager.LvManager.player.OnLevelUp(); 
     }
 
-
+    public void Heal(float amount)
+    {
+        currentHP += amount;
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+    }
 }
-

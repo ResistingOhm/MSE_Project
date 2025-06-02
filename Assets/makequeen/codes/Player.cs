@@ -14,11 +14,27 @@ public class Player : MonoBehaviour
     
     public EnemyScanner enemyscanner;
 
+    public bool hasBerserkBoost = false;
+    public bool hasSprintSurge = false;
+
+    float berserkTimer = 0f;
+    float sprintTimer = 0f;
+
+    bool isBerserkActive = false;
+    bool isSprintActive = false;
+
+    float berserkDuration = 3f;
+    float sprintDuration = 3f;
+
+    float berserkCooldown = 10f;
+    float sprintCooldown = 10f;
+
+    float berserkBuffAmount = 10f;
+    float sprintBuffAmount = 2f;
+
     Rigidbody2D rigid;
     SpriteRenderer spriter;
 
-    
-    
     void Awake()
     {
         statusUI = GetComponent<PlayerStatusUI>();
@@ -33,11 +49,14 @@ public class Player : MonoBehaviour
     {
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.y = Input.GetAxisRaw("Vertical");
+
+        HandleBerserkBoost();
+        HandleSprintSurge();
     }
 
     private void FixedUpdate()
     {
-        Vector2 nextVec = inputVec.normalized * speed *Time.fixedDeltaTime;
+        Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
     }
 
@@ -53,16 +72,20 @@ public class Player : MonoBehaviour
         stat.TakeDamage(dmg);
         statusUI?.UpdateHPbar();
 
-        if (stat.IsDead()){
+        if (stat.IsDead())
+        {
             Debug.Log("Game over");
-            if (gameoverManager != null){
+            if (gameoverManager != null)
+            {
                 gameoverManager.ShowGameOver(score);
             }
-            else{
-            Debug.LogError("❌ gameoverManager 연결 불가");
+            else
+            {
+                Debug.LogError("❌ gameoverManager 연결 불가");
             }
         }
     }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Exp"))
@@ -86,7 +109,8 @@ public class Player : MonoBehaviour
     public void OnLevelUp()
     {
         Debug.Log("(level up ! choose one. (1: HP, 2: attack, 3: defense, 4: luck, 5: moveSpeed)");
-        if (statusUI != null){
+        if (statusUI != null)
+        {
             statusUI.UpdateLevel();
             statusUI.UpdateHPbar();
             statusUI.UpdateExpbar();
@@ -131,4 +155,59 @@ public class Player : MonoBehaviour
         }
     }
 
+    void HandleBerserkBoost()
+    {
+        if (!hasBerserkBoost) return;
+
+        berserkTimer += Time.deltaTime;
+
+        if (!isBerserkActive && berserkTimer >= berserkCooldown)
+        {
+            isBerserkActive = true;
+            berserkTimer = 0f;
+            stat.attack += berserkBuffAmount;
+            StartCoroutine(ResetBerserk());
+        }
+    }
+
+    IEnumerator ResetBerserk()
+    {
+        yield return new WaitForSeconds(berserkDuration);
+        stat.attack -= berserkBuffAmount;
+        isBerserkActive = false;
+    }
+
+    void HandleSprintSurge()
+    {
+        if (!hasSprintSurge) return;
+
+        sprintTimer += Time.deltaTime;
+
+        if (!isSprintActive && sprintTimer >= sprintCooldown)
+        {
+            isSprintActive = true;
+            sprintTimer = 0f;
+            speed += sprintBuffAmount;
+            StartCoroutine(ResetSprint());
+        }
+    }
+
+    IEnumerator ResetSprint() 
+    {
+        yield return new WaitForSeconds(sprintDuration);
+        speed -= sprintBuffAmount;
+        isSprintActive = false;
+    }
+
+    public bool hasRoseThorn = false;
+    public void LearnRoseThorn()
+    {
+        hasRoseThorn = true;
+    }
+
+    public bool hasSpinBlade = false;
+    public void LearnSpinBlade()
+    {
+        hasSpinBlade = true;
+    }
 }
