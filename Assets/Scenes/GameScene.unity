@@ -743,7 +743,7 @@ MonoBehaviour:
   stageLv: {fileID: 0}
   levelOne: {fileID: 11400000, guid: 2d25ac62c790cb8428aa9d1b32510742, type: 2}
   levelTwo: {fileID: 11400000, guid: 35f4b98456d3d8f409277ee212280f7a, type: 2}
-  EnemySpawnTime: 5
+  EnemySpawnTime: 3
   BossSpawnTime: 300
   timerText: {fileID: 2011734393}
 --- !u!1 &815885493
