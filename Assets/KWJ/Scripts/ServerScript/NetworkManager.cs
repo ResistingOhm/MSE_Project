@@ -99,11 +99,12 @@ public class NetworkManager : MonoBehaviour
                 // success! Let's parse the JSON data
                 string json = webRequest.downloadHandler.text;
                 //Debug.Log(json);
-                if (json == null)
+                if (string.IsNullOrWhiteSpace(json))
                 {
                     Debug.Log("비밀번호가 틀립니다.");
                     break;
                 }
+                Debug.Log(json);
                 parseUserDataResult(json);
                 Debug.Log("로그인 성공!");
                 SceneManager.LoadScene("MainScene");
@@ -185,7 +186,7 @@ public class NetworkManager : MonoBehaviour
                 // success! Let's parse the JSON data
                 string json = webRequest.downloadHandler.text;
                 //Debug.Log(json);
-                if (json == null)
+                if (string.IsNullOrWhiteSpace(json))
                 {
                     Debug.Log("뭔가 문제가 발생했어요");
                     break;
