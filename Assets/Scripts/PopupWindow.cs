@@ -13,7 +13,7 @@ public class PopupWindow : MonoBehaviour {
     public static PopupWindow instance;
     public static event EventHandler<PopupCheckConfirmEventArgs> ConfirmEvent;
 
-    public enum MsgType { notice, error, warning, exit  };
+    public enum MsgType { notice, error, warning, exit,Joke };
 
     public GameObject popupView;
     
@@ -100,6 +100,12 @@ public class PopupWindow : MonoBehaviour {
             m_MessageType.text = "EXIT";
             m_Msg.text = msg;
             m_MessageType.color = Color.white;
+        }
+        else if (msgtype == MsgType.Joke)
+        {
+            m_MessageType.text = "Joke!";
+            m_Msg.text = msg;
+            m_MessageType.color = Color.cyan;
         }
         else
         {

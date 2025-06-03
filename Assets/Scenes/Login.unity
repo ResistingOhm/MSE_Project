@@ -285,6 +285,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47d42309b67ef548afcc0f7ccb64479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLogin: 0
+  uuid: 
+  username: 
+  highscore: -1
+  scoreid: -1
 --- !u!4 &316098850
 Transform:
   m_ObjectHideFlags: 0
@@ -2214,11 +2219,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1059363020}
-  - {fileID: 1073784619}
   - {fileID: 419163206}
   - {fileID: 384931137}
   - {fileID: 2133555752}
   - {fileID: 1695160801}
+  - {fileID: 1073784619}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

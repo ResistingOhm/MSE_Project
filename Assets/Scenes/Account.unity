@@ -356,11 +356,11 @@ RectTransform:
   - {fileID: 769438072}
   - {fileID: 395692167}
   - {fileID: 592036789}
-  - {fileID: 889903877}
   - {fileID: 1489224778}
   - {fileID: 734654135}
   - {fileID: 1535306862}
   - {fileID: 231724753}
+  - {fileID: 889903877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2115,6 +2115,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47d42309b67ef548afcc0f7ccb64479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLogin: 0
+  uuid: 
+  username: 
+  highscore: -1
+  scoreid: -1
 --- !u!4 &777179958
 Transform:
   m_ObjectHideFlags: 0
@@ -2537,15 +2542,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1062854865175908866, guid: b65eff79380ce554db918c0fe0a8a942, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1062854865175908866, guid: b65eff79380ce554db918c0fe0a8a942, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1062854865175908866, guid: b65eff79380ce554db918c0fe0a8a942, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1062854865175908866, guid: b65eff79380ce554db918c0fe0a8a942, type: 3}
       propertyPath: m_AnchoredPosition.x
