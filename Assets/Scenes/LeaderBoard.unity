@@ -957,6 +957,7 @@ GameObject:
   - component: {fileID: 308554576}
   - component: {fileID: 308554575}
   - component: {fileID: 308554574}
+  - component: {fileID: 308554577}
   m_Layer: 5
   m_Name: GoodButton
   m_TagString: Untagged
@@ -1027,7 +1028,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 308554575}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 308554577}
+        m_TargetAssemblyTypeName: ScoreEntry, Assembly-CSharp
+        m_MethodName: OnClickGoodButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &308554575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,6 +1079,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 308554572}
   m_CullTransparentMesh: 1
+--- !u!114 &308554577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308554572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eaabb2b3f29afc4999e668243b9d940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: {fileID: 0}
+  username: {fileID: 0}
+  level: {fileID: 0}
+  score: {fileID: 0}
 --- !u!1 &368112731
 GameObject:
   m_ObjectHideFlags: 0
@@ -1616,7 +1645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entryContainer: {fileID: 83511856}
-  entryTemplate: {fileID: 1411758786}
+  entryPrefab: {fileID: 0}
 --- !u!1 &786691467
 GameObject:
   m_ObjectHideFlags: 0
@@ -2432,6 +2461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1411758786}
   - component: {fileID: 1411758787}
+  - component: {fileID: 1411758788}
   m_Layer: 5
   m_Name: Entry
   m_TagString: Untagged
@@ -2484,6 +2514,22 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1411758788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411758785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eaabb2b3f29afc4999e668243b9d940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: {fileID: 123941689}
+  username: {fileID: 1801825351}
+  level: {fileID: 216003328}
+  score: {fileID: 133965014}
 --- !u!1 &1508367661
 GameObject:
   m_ObjectHideFlags: 0
@@ -2513,6 +2559,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47d42309b67ef548afcc0f7ccb64479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLogin: 0
+  uuid: 
+  username: 
+  highscore: -1
+  scoreid: -1
 --- !u!4 &1508367663
 Transform:
   m_ObjectHideFlags: 0

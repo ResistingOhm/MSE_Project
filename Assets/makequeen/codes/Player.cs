@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public PlayerStatusUI statusUI;
     public GameoverManager gameoverManager;
+    public GameObject levelUpPopup;
     public int score; // 추가용
 
     public PlayerStat stat;
@@ -115,7 +116,12 @@ public class Player : MonoBehaviour
             statusUI.UpdateHPbar();
             statusUI.UpdateExpbar();
         }
+
+        if (levelUpPopup != null)
+            levelUpPopup.SetActive(true);
+
         StartCoroutine(WaitForStatInput());
+        
     }
 
     IEnumerator WaitForStatInput()
@@ -150,9 +156,11 @@ public class Player : MonoBehaviour
                 stat.moveSpeed += 1;
                 selected = true;
             }
-
+            
             yield return null;
         }
+        if (levelUpPopup != null)
+                levelUpPopup.SetActive(false);
     }
 
     void HandleBerserkBoost()

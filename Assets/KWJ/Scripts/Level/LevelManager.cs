@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager LvManager;
+    public GameObject gameClearPanel;
+    public TextMeshProUGUI finalScoreText;
 
     [SerializeField]
     private EnemySpawnManager esm;
@@ -94,11 +96,26 @@ public class LevelManager : MonoBehaviour
     public void onGameEnd()
     {
         isGamePlaying = false;
-        //Show UI
+        
         if (score > UserDataManager.udm.GetHighscore())
         {
             NetworkManager.apiManager.UpdateScore(UserDataManager.udm.GetScoreId(),score, enemynum, gamelevel, new PlayerStatData(player.stat), min, sec);
         }
+        
+        if(gameClearPanel != null){ //Show UI
+            gameClearPanel.SetActive(true);
+            Time.timeScale = 0f;  
+        }
+        else{
+        Debug.LogWarning("GameClearPanel is not connect");
+        }
+        if (finalScoreText != null){
+            finalScoreText.text = score.ToString();
+        }
+    }
+    public void GoToTitleScene(){
+        Time.timeScale = 1f; 
+        SceneManager.LoadScene("Title");
     }
     public Vector3 GetPlayerPos()
     {

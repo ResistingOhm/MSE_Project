@@ -129,7 +129,13 @@ public class NetworkManager : MonoBehaviour
     {
         ScoreDataList s = JsonUtility.FromJson<ScoreDataList>(json);
 
+        if (LeaderBoardManager.instance != null){
+        
         LeaderBoardManager.instance.SetList(s);
+        }
+        else{
+        Debug.LogError("❌ LeaderBoardManager.instance is null.");
+        }
     }
     private string GetUserDataJson(string name, string id, string pw)
     {

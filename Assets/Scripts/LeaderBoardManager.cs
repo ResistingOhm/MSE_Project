@@ -34,10 +34,10 @@ public class LeaderBoardManager : MonoBehaviour
         }
         else
         {
-            instance = GetComponent<LeaderBoardManager>();
+            instance = this;
         }
     }
-    void Start()
+    IEnumerator Start()
     {
         /*
         List<EntryData> dataList = new List<EntryData>()
@@ -49,7 +49,7 @@ public class LeaderBoardManager : MonoBehaviour
         dataList.Sort((a, b) => b.score.CompareTo(a.score));
         Refresh(dataList);
         */
-
+        yield return new WaitForSeconds(0.1f);
         NetworkManager.apiManager.GetLeaderBoard();
     }
 
