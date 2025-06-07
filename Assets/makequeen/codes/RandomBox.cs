@@ -1,96 +1,58 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class RandomBox : MonoBehaviour
 {
-    private bool used = false;
+    public enum BoxRewardType { None, SmallPotion, LargePotion }
+
+    [Range(0f, 1f)] public float noneChance = 0.5f;
+    [Range(0f, 1f)] public float smallPotionChance = 0.35f;
+    [Range(0f, 1f)] public float largePotionChance = 0.15f;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (used || !collision.CompareTag("Player"))
-            return;
+        if (!collision.CompareTag("Player")) return;
 
-        used = true;
         Player player = collision.GetComponent<Player>();
-        if (player != null)
+        if (player == null) return;
+
+       
+        NetworkManager.apiManager.GetRandomJoke(1);
+
+        BoxRewardType reward = GetReward(player.stat.luck);
+        switch (reward)
         {
-            StartCoroutine(ActivateBox(player));
-        }
-    }
-
-    IEnumerator ActivateBox(Player player)
-    {
-        string joke = "No joke today";
-
-        UnityWebRequest www = UnityWebRequest.Get("https://official-joke-api.appspot.com/jokes/random/1");
-        yield return www.SendWebRequest();
-
-        if (!www.isNetworkError && !www.isHttpError)
-        {
-            string result = www.downloadHandler.text;
-            joke = ParseJokeFromJSON(result);
-        }
-
-        int outcome = GetBoxResult(player.stat.luck); // 0: 꽝 1: 하급포션 2: 상급포셩
-
-        switch (outcome)
-        {
-            case 0:
-                Debug.Log($"Joke: {joke}\n 꽝! 아무것도 얻지 못했습니다.");
+            case BoxRewardType.SmallPotion:
+                player.stat.Heal(15f);
+                Debug.Log("Low Potion! HP +15");
                 break;
-            case 1:
-                player.stat.Heal(15);
-                Debug.Log($"Joke: {joke}\n하급 포션! 체력 15 회복!");
+
+            case BoxRewardType.LargePotion:
+                player.stat.Heal(30f);
+                Debug.Log("High Potion! HP +30");
                 break;
-            case 2:
-                player.stat.Heal(30);
-                Debug.Log($"Joke: {joke}\n상급 포션! 체력 30 회복!");
+
+            case BoxRewardType.None:
+            default:
+                Debug.Log("No Luck!");
                 break;
         }
 
         gameObject.SetActive(false);
     }
 
-    int GetBoxResult(float luck)
+    private BoxRewardType GetReward(float luck)
     {
-        float rand = Random.value;
+        float roll = Random.Range(0f, 1f);
 
-        float badChance = Mathf.Clamp01(0.6f - luck * 0.01f);
-        float midChance = Mathf.Clamp01(0.3f + luck * 0.007f);
-        float goodChance = 1f - badChance - midChance;
+        float adjustedNoneChance = Mathf.Clamp01(noneChance - luck * 0.01f);
 
-        if (rand < badChance)
-            return 0; //꽝
-        else if (rand < badChance + midChance)
-            return 1; // 하급
+        if (roll < adjustedNoneChance)
+            return BoxRewardType.None;
+        else if (roll < adjustedNoneChance + smallPotionChance)
+            return BoxRewardType.SmallPotion;
         else
-            return 2; // 상급
-    }
-
-    string ParseJokeFromJSON(string json)
-    {
-        try
-        {
-            var jokeData = JsonUtility.FromJson<JokeWrapper>($"{{\"jokes\":{json}}}");
-            return jokeData.jokes[0].setup + " " + jokeData.jokes[0].punchline;
-        }
-        catch
-        {
-            return "Parsing error.";
-        }
-    }
-
-    [System.Serializable]
-    public class Joke
-    {
-        public string setup;
-        public string punchline;
-    }
-
-    [System.Serializable]
-    public class JokeWrapper
-    {
-        public Joke[] jokes;
+            return BoxRewardType.LargePotion;
     }
 }

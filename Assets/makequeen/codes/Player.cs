@@ -13,11 +13,19 @@ public class Player : MonoBehaviour
     public float speed;
     public EnemyScanner enemyscanner;
 
+    public AudioClip PdeathSFX;
+    public AudioClip[] PhitSFX;
+
+    private AudioSource audioSource;
+
     Rigidbody2D rigid;
     SpriteRenderer spriter;
+    Animator anim;
 
     public bool hasBerserkBoost = false;
     public bool hasSprintSurge = false;
+    public bool hasRoseThorn = false;
+    public bool hasSpinBlade = false;
 
     float berserkTimer = 0f;
     float sprintTimer = 0f;
@@ -41,6 +49,9 @@ public class Player : MonoBehaviour
         spriter = GetComponent<SpriteRenderer>();
         enemyscanner = GetComponent<EnemyScanner>();
         stat = GetComponent<PlayerStat>();
+        anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     void Update()
@@ -60,6 +71,8 @@ public class Player : MonoBehaviour
 
     void LateUpdate() 
     {
+        anim.SetFloat("Speed", inputVec.magnitude);
+
         if (inputVec.x != 0) {
             spriter.flipX = inputVec.x < 0;
         }
@@ -72,15 +85,9 @@ public class Player : MonoBehaviour
 
         if (stat.IsDead())
         {
-            Debug.Log("Game over");
-            if (gameoverManager != null)
-            {
-                gameoverManager.ShowGameOver();
-            }
-            else
-            {
-                Debug.LogError("❌ gameoverManager is not connect");
-            }
+            //Debug.Log(" Player dead");
+            anim.SetTrigger("Dead");
+            audioSource.PlayOneShot(PdeathSFX);
         }
     }
     public void OnTriggerEnter2D(Collider2D collision)
@@ -232,19 +239,39 @@ public class Player : MonoBehaviour
         isSprintActive = false;
     }
 
-    public bool hasRoseThorn = false;
-    public void LearnRoseThorn()
+    public void LearnRoseThorn() { hasRoseThorn = true; }
+    public void LearnSpinBlade() { hasSpinBlade = true; }
+
+    /*
+     ������ enemyDeadEvent() �ȿ� �̰� �ʿ�
+     LevelManager.LvManager.player.OnBossKilled();
+     */
+
+    public void OnBossKilled()
     {
-        hasRoseThorn = true;
+        TryGiveRandomSkillReward();
     }
-
-    public bool hasSpinBlade = false;
-    public void LearnSpinBlade()
+    public void TryGiveRandomSkillReward()
     {
-        hasSpinBlade = true;
-    }
+        float roll = Random.value;
+        if (roll > 0.10f)
+        {
+            Debug.Log("No reward.");
+            return;
+        }
+
+        List<int> availableSkills = new List<int>();
+        if (!hasRoseThorn) availableSkills.Add(1);
+        if (!hasBerserkBoost) availableSkills.Add(2);
+        if (!hasSprintSurge) availableSkills.Add(3);
+        if (!hasSpinBlade) availableSkills.Add(4);
 
 
+        if (availableSkills.Count == 0)
+        {
+            Debug.Log("Has every skill.");
+            return;
+        }
 }
 
 
@@ -264,20 +291,17 @@ override protected void enemyDeadEvent()
 {
     gameObject.SetActive(false);
 
-    if (GameManager.instance != null && GameManager.instance.player != null)
-    {
-        switch (rewardType)
+        int selected = availableSkills[Random.Range(0, availableSkills.Count)];
+        switch (selected)
         {
-            case BossRewardType.RoseThorn:
-                GameManager.instance.player.LearnRoseThorn();
-                break;
-            case BossRewardType.BerserkBoost:
-                GameManager.instance.player.LearnBerserkBoost();
-                break;
-            case BossRewardType.SprintSurge:
-                GameManager.instance.player.LearnSprintSurge();
-                break;
+            case 1: LearnRoseThorn(); break;
+            case 2: hasBerserkBoost = true; break;
+            case 3: hasSprintSurge = true; break;
+            case 4: LearnSpinBlade(); break;
         }
+
+        Debug.Log("reward skill: " + selected);
     }
- 
- */
+
+}
+
