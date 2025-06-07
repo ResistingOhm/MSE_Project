@@ -5,34 +5,30 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerStat : MonoBehaviour
 {
+    public PlayerStatusUI statusUI;
+    
     public float maxHP = 100f;
     public float currentHP = 100f;
     public float attack = 10f;
-    public float defense = 5f; 
-    public float luck = 0f;    
+    public float defense = 5f;  // ����
+    public float luck = 0f;     // ���
     public float moveSpeed = 5f;
 
     public int level = 1;
     public float currentExp = 0f;
     public float maxExp = 10f;
 
-    public PlayerStatusUI statusUI;
-
     void Start()
     {
         statusUI = GetComponent<PlayerStatusUI>();
     }
-
     public void ResetHP()
     {
         currentHP = maxHP;
-        if (statusUI != null)
-            statusUI.UpdateHPbar();
     }
-
     public void TakeDamage(float dmg)
     {
-        float finalDmg = Mathf.Max(dmg - defense, 1); // 최소 1은 데미지를 받게 함
+        float finalDmg = Mathf.Max(dmg - defense, 1); // �ּ� 1 �������� ����
         currentHP -= finalDmg;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
     }
@@ -77,4 +73,7 @@ public class PlayerStat : MonoBehaviour
         currentHP += amount;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
     }
+
+
 }
+

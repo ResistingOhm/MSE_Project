@@ -14,8 +14,12 @@ public class GameoverManager : MonoBehaviour
 
     private void Start(){
         gameoverPanel.SetActive(false);
+        
+        mainButton.onClick.AddListener(OnMainMenu);
+        replayButton.onClick.AddListener(OnRetry);
+    
     }
-    public void ShowGameOver(int score){
+    public void ShowGameOver(){
         if (gameoverPanel != null){
             gameoverPanel.SetActive(true);
         }

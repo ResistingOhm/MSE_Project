@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5604275018786886710}
   - component: {fileID: 3581517980227652999}
   m_Layer: 5
-  m_Name: Button (Legacy) (4)
+  m_Name: LuckUpButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 6465814137928659737}
   - component: {fileID: 232661243889973522}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: HpUpButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 3681038089838065765}
   - component: {fileID: 7390891233446476175}
   m_Layer: 5
-  m_Name: Button (Legacy) (2)
+  m_Name: diffenseUpButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -455,7 +455,7 @@ GameObject:
   - component: {fileID: 418213027831466990}
   - component: {fileID: 9005841893809232604}
   m_Layer: 5
-  m_Name: Button (Legacy) (3)
+  m_Name: SpeedUpButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -734,7 +734,7 @@ GameObject:
   - component: {fileID: 1230356537079209374}
   - component: {fileID: 6024416206496143944}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: AttackUpButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -851,6 +851,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2766258569012346340}
+  - component: {fileID: 7454412548232205944}
   m_Layer: 0
   m_Name: LevelUp
   m_TagString: Untagged
@@ -874,6 +875,23 @@ Transform:
   - {fileID: 5210424738341274113}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7454412548232205944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4702679987910489060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea242052a3b8843efaddc30e83e9d366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpButton: {fileID: 232661243889973522}
+  attackButton: {fileID: 6024416206496143944}
+  defenseButton: {fileID: 7390891233446476175}
+  luckButton: {fileID: 3581517980227652999}
+  speedButton: {fileID: 9005841893809232604}
 --- !u!1 &7390145262511008757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,7 +1067,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6238643425666865217
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1065,8 +1083,8 @@ RectTransform:
   - {fileID: 2465281120773609709}
   - {fileID: 6928091573498897191}
   - {fileID: 1319063893146248191}
-  - {fileID: 9195382603432611895}
   - {fileID: 3858473498061111776}
+  - {fileID: 9195382603432611895}
   m_Father: {fileID: 5210424738341274113}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1172,7 +1190,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &7780154573317358441
 MonoBehaviour:

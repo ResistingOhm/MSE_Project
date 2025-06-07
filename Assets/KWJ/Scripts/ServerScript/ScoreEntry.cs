@@ -9,8 +9,10 @@ public class ScoreEntry : MonoBehaviour
     public TMP_Text username;
     public TMP_Text level;
     public TMP_Text score;
+    public TMP_Text likenum;
 
     private LeaderBoardScoreData scoredata;
+    private int currentLikeNum;
 
     public void SetEntry(LeaderBoardScoreData s, int pos)
     {
@@ -20,11 +22,15 @@ public class ScoreEntry : MonoBehaviour
         this.score.text = s.score.ToString();
 
         scoredata = s;
+        currentLikeNum = s.likenum;
+        likenum.text = currentLikeNum.ToString();
     }
 
     public void OnClickGoodButton()
     {
         NetworkManager.apiManager.LikeScore(scoredata.id);
         //+likenum in client
+        currentLikeNum++;
+        likenum.text = currentLikeNum.ToString();
     }
 }

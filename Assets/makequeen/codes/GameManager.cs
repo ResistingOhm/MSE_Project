@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        instance = this.GetComponent<GameManager>();
+        instance = this;
     }
 
 }

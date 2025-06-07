@@ -105,9 +105,9 @@ public class NetworkManager : MonoBehaviour
                 //Debug.Log(json);
                 if (json == null)
                 {
-                    PopupWindow.instance.PopupWindowOpen(
-                PopupWindow.MsgType.error,"Incorrect password");
-                    break;
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,"wrong password");
+                break;
                 }
                 parseUserDataResult(json);
                 
@@ -248,7 +248,6 @@ public class NetworkManager : MonoBehaviour
                 //Debug.Log(json);
                 UserDataManager.udm.SetHighscore(score);
                 //Do Something after updating score
-                SceneManager.LoadScene("MainScene");
                 break;
 
         }

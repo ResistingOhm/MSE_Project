@@ -26,16 +26,16 @@ public class PopupWindow : MonoBehaviour {
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
+            return;
         }
-    }   
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+       
 	// Use this for initialization
 	void Start ()
     {
@@ -51,7 +51,7 @@ public class PopupWindow : MonoBehaviour {
         if (transform.parent != null && transform.parent.GetComponent<Canvas>() != null)
             transform.SetSiblingIndex(transform.parent.childCount);
         else
-            Debug.LogError("Popup Window 패키지가 Canvas 자식으로 설정되어있지 않습니다. Canvas 하위 자식으로 설정하세요.");
+            Debug.LogError("Popup Window error");
             
     }
 

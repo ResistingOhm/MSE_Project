@@ -7,13 +7,14 @@ public class Player : MonoBehaviour
     public PlayerStatusUI statusUI;
     public GameoverManager gameoverManager;
     public GameObject levelUpPopup;
-    public int score; // 추가용
 
     public PlayerStat stat;
     public Vector2 inputVec;
     public float speed;
-    
     public EnemyScanner enemyscanner;
+
+    Rigidbody2D rigid;
+    SpriteRenderer spriter;
 
     public bool hasBerserkBoost = false;
     public bool hasSprintSurge = false;
@@ -33,13 +34,9 @@ public class Player : MonoBehaviour
     float berserkBuffAmount = 10f;
     float sprintBuffAmount = 2f;
 
-    Rigidbody2D rigid;
-    SpriteRenderer spriter;
-
     void Awake()
     {
         statusUI = GetComponent<PlayerStatusUI>();
-
         rigid = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();
         enemyscanner = GetComponent<EnemyScanner>();
@@ -57,7 +54,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
+        Vector2 nextVec = inputVec.normalized * speed *Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
     }
 
@@ -78,15 +75,14 @@ public class Player : MonoBehaviour
             Debug.Log("Game over");
             if (gameoverManager != null)
             {
-                gameoverManager.ShowGameOver(score);
+                gameoverManager.ShowGameOver();
             }
             else
             {
-                Debug.LogError("❌ gameoverManager 연결 불가");
+                Debug.LogError("❌ gameoverManager is not connect");
             }
         }
     }
-
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Exp"))
@@ -120,10 +116,41 @@ public class Player : MonoBehaviour
         if (levelUpPopup != null)
             levelUpPopup.SetActive(true);
 
-        StartCoroutine(WaitForStatInput());
-        
-    }
+        Time.timeScale = 0f;
 
+        StartCoroutine(WaitForStatInput());
+    }
+    public void IncreaseStat(int index)
+    {
+        switch (index)
+        {
+            case 1:
+                stat.maxHP += 10;
+                stat.currentHP = stat.maxHP;
+                break;
+            case 2:
+                stat.attack += 10;
+                break;
+            case 3:
+                stat.defense += 10;
+                break;
+            case 4:
+                stat.luck += 10;
+                break;
+            case 5:
+                stat.moveSpeed += 1;
+                break;
+        }
+
+        statusUI?.UpdateLevel();
+        statusUI?.UpdateHPbar();
+        statusUI?.UpdateExpbar();
+
+        if (levelUpPopup != null)
+            levelUpPopup.SetActive(false);
+
+        Time.timeScale = 1f;
+    }
     IEnumerator WaitForStatInput()
     {
         bool selected = false;
@@ -132,38 +159,36 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                stat.maxHP += 10;
-                stat.currentHP = stat.maxHP;
+                IncreaseStat(1);
                 selected = true;
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                stat.attack += 10;
+                IncreaseStat(2);
                 selected = true;
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                stat.defense += 10;
+                IncreaseStat(3);
                 selected = true;
             }
             else if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                stat.luck += 10;
+                IncreaseStat(4);
                 selected = true;
             }
             else if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                stat.moveSpeed += 1;
+                IncreaseStat(5);
                 selected = true;
             }
-            
+
             yield return null;
         }
-        if (levelUpPopup != null)
-                levelUpPopup.SetActive(false);
     }
 
-    void HandleBerserkBoost()
+
+    void HandleBerserkBoost() //�����𸶴� ���ݷ� ����
     {
         if (!hasBerserkBoost) return;
 
@@ -185,7 +210,7 @@ public class Player : MonoBehaviour
         isBerserkActive = false;
     }
 
-    void HandleSprintSurge()
+    void HandleSprintSurge() //���� �𸶴� �ӵ� ������
     {
         if (!hasSprintSurge) return;
 
@@ -218,4 +243,41 @@ public class Player : MonoBehaviour
     {
         hasSpinBlade = true;
     }
+
+
 }
+
+
+/*
+ Boss.cs�� �߰��ؾ���!...
+ public enum BossRewardType
+{
+    None,
+    RoseThorn,
+    BerserkBoost,
+    SprintSurge
+}
+
+public BossRewardType rewardType = BossRewardType.None;
+
+override protected void enemyDeadEvent()
+{
+    gameObject.SetActive(false);
+
+    if (GameManager.instance != null && GameManager.instance.player != null)
+    {
+        switch (rewardType)
+        {
+            case BossRewardType.RoseThorn:
+                GameManager.instance.player.LearnRoseThorn();
+                break;
+            case BossRewardType.BerserkBoost:
+                GameManager.instance.player.LearnBerserkBoost();
+                break;
+            case BossRewardType.SprintSurge:
+                GameManager.instance.player.LearnSprintSurge();
+                break;
+        }
+    }
+ 
+ */

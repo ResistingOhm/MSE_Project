@@ -16,7 +16,6 @@ public class LeaderBoardManager : MonoBehaviour
         public string name;
         public int level;
         public int score;
-        public int likeCount = 0;
     }
     */
     public Transform entryContainer;
@@ -37,7 +36,7 @@ public class LeaderBoardManager : MonoBehaviour
             instance = this;
         }
     }
-    IEnumerator Start()
+    void Start()
     {
         /*
         List<EntryData> dataList = new List<EntryData>()
@@ -49,7 +48,7 @@ public class LeaderBoardManager : MonoBehaviour
         dataList.Sort((a, b) => b.score.CompareTo(a.score));
         Refresh(dataList);
         */
-        yield return new WaitForSeconds(0.1f);
+
         NetworkManager.apiManager.GetLeaderBoard();
     }
 
@@ -90,18 +89,8 @@ public class LeaderBoardManager : MonoBehaviour
             entry.Find("Name").GetComponent<TextMeshProUGUI>().text = data.name;
             entry.Find("Level").GetComponent<TextMeshProUGUI>().text = "Level " + data.level;
             entry.Find("Score").GetComponent<TextMeshProUGUI>().text = data.score.ToString();
-            
-            TextMeshProUGUI likeText = entry.Find("Like").GetComponent<TextMeshProUGUI>();
-            likeText.text = data.likeCount.ToString();
-
-            EntryData capturedData = data;
-            TextMeshProUGUI capturedLikeText = likeText;
-    
-            entry.Find("GoodButton").GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() =>
-            {
-            capturedData.likeCount++;
-            capturedLikeText.text = capturedData.likeCount.ToString();
-            Debug.Log($"❤️ {capturedData.name} Like: {capturedData.likeCount}");
+            entry.Find("GoodButton").GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {
+                Debug.Log($"❤️ {data.name}");
             });
 
             entryTransformList.Add(entry);
