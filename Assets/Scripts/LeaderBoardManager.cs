@@ -33,7 +33,7 @@ public class LeaderBoardManager : MonoBehaviour
         }
         else
         {
-            instance = GetComponent<LeaderBoardManager>();
+            instance = this;
         }
     }
     void Start()

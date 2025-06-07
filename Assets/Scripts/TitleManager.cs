@@ -23,7 +23,7 @@ public class TitleManager : MonoBehaviour
     }
     void Start()
     {
-        creditPanel.SetActive(false); // 씬 시작할 때 꺼줌
+        creditPanel.SetActive(false); 
     }
     public void OnCreditClicked(){
           creditPanel.SetActive(true);
@@ -34,7 +34,7 @@ public class TitleManager : MonoBehaviour
     public void OnClickExitButton()
     {
         Application.Quit();
-#if UNITY_EDITOR //에디터 안에서 실행될떄만 종료
+#if UNITY_EDITOR 
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
