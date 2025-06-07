@@ -91,16 +91,23 @@ public class Weapon : MonoBehaviour
 
     void CastRoseThorn()
     {
-        Transform aoe = ObjectPoolManager.pm.SpawnFromPool("RoseThorn", transform.position, Quaternion.identity).transform;
-        aoe.position = transform.position;
+        GameObject aoeObj = ObjectPoolManager.pm.SpawnFromPool("RTH", transform.position, Quaternion.identity);
+        if (aoeObj == null) return;
 
-        float totalDamage = damage + player.stat.attack;
-        aoe.GetComponent<RoseThorn>().damage = totalDamage;
+        aoeObj.transform.position = transform.position;
+        RoseThorn aoe = aoeObj.GetComponent<RoseThorn>();
+        if (aoe != null)
+        {
+            aoe.damage = damage + player.stat.attack;
+        }
     }
 
     void Batch() {
         for (int index = 0; index < count; index++) {
-            Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
+            GameObject bulletObj = ObjectPoolManager.pm.SpawnFromPool("BLT", transform.position, Quaternion.identity);
+            if (bulletObj == null) continue;
+
+            Transform bullet = bulletObj.transform;
             bullet.parent = transform;
 
             Vector3 rotVec = Vector3.forward * 360 * index / count;

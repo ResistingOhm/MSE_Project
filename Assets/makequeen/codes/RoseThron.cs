@@ -38,6 +38,16 @@ public class RoseThorn : MonoBehaviour
             if (enemy != null)
             {
                 enemy.SendMessage("PoisonDamage", poisonDuration, SendMessageOptions.DontRequireReceiver);
+
+                Player player = FindObjectOfType<Player>();
+                if (player != null)
+                {
+                    AudioSource audioSource = player.GetComponent<AudioSource>();
+                    if (audioSource != null && player.PhitSFX.Length > 0)
+                    {
+                        audioSource.PlayOneShot(player.PhitSFX[Random.Range(0, player.PhitSFX.Length)]);
+                    }
+                }
             }
         }
     }
