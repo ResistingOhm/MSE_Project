@@ -19,32 +19,6 @@ public class EnemySpawnManager : MonoBehaviour
         spawnPoints = spawnPointsParent.GetComponentsInChildren<Transform>().Where(t=>t != spawnPointsParent.transform).ToArray();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            SpawnEnemies(MoveType.WALL_W);
-        }
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            SpawnEnemies(MoveType.WALL_L);
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            SpawnEnemies(MoveType.HORDE);
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            SpawnBoss();
-        }
-        
-    }
-
     public void SpawnEnemies(MoveType mt, int spawnNum = -1)
     {
         if (mt == MoveType.WALL_L)
@@ -52,7 +26,7 @@ public class EnemySpawnManager : MonoBehaviour
             int ri = Random.Range(0, 2);
             float pos_x = spawnPoints[ri].position.x;
 
-            for (int i = -60; i < 65; i+=3)
+            for (int i = -45; i < 40; i+=3)
             {
                 Enemy spawnedEnemies = chooseEnemy(new Vector3(pos_x, i, 0));
 
@@ -68,7 +42,7 @@ public class EnemySpawnManager : MonoBehaviour
             int ri = Random.Range(0, 2);
             float pos_y = spawnPoints[ri].position.y;
 
-            for (int i = -45; i < 40; i += 3)
+            for (int i = -60; i < 63; i += 3)
             {
                 Enemy spawnedEnemies = chooseEnemy(new Vector3(i, pos_y, 0));
 

@@ -88,6 +88,7 @@ public class Player : MonoBehaviour
             //Debug.Log(" Player dead");
             anim.SetTrigger("Dead");
             audioSource.PlayOneShot(PdeathSFX);
+            LevelManager.LvManager.onGameEnd(false);
         }
     }
     public void OnTriggerEnter2D(Collider2D collision)

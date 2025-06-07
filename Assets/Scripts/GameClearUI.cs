@@ -17,6 +17,7 @@ public class GameClearUI : MonoBehaviour
     public void GoToTitleScene(){
 
         Time.timeScale = 1f;
+        SoundManager.soundManager.SetTitleBGM();
         SceneManager.LoadScene("Title");
     }
 }

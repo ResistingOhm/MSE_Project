@@ -36,6 +36,7 @@ public class GameoverManager : MonoBehaviour
     public void OnMainMenu(){
 
         Time.timeScale = 1f;
+        SoundManager.soundManager.SetTitleBGM();
         SceneManager.LoadScene("MainScene");
     }
 }

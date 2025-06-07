@@ -63,6 +63,7 @@ public class SettingsMenu : MonoBehaviour
     public void OnLogout()
     {
         UserDataManager.udm.UserLogout();
+        SoundManager.soundManager.SetTitleBGM();
         SceneManager.LoadScene("Login");
         settingsPanel.SetActive(false);
     }

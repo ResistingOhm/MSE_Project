@@ -168,6 +168,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7723640397816070960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3f2ff82181b864449f973bbdcd65186, type: 3}
+  m_Script: {fileID: 11500000, guid: a828c0a892a4cf149b9495c00ba5f0d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noneChance: 0.5
+  smallPotionChance: 0.35
+  largePotionChance: 0.15

@@ -39,7 +39,7 @@ public class Boss : Enemy
         if (isFinalBoss)
         {
             //Here for game clear code
-            LevelManager.LvManager.onGameEnd();
+            LevelManager.LvManager.onGameEnd(true);
 
         }
     }

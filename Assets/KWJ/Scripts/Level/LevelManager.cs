@@ -6,6 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager LvManager;
     public GameObject gameClearPanel;
+    public GameObject gameOverPanel;
     public TextMeshProUGUI finalScoreText;
 
     [SerializeField]
@@ -85,6 +86,26 @@ public class LevelManager : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            esm.SpawnEnemies(MoveType.WALL_W);
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            esm.SpawnEnemies(MoveType.WALL_L);
+        }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            esm.SpawnEnemies(MoveType.HORDE);
+        }
+
+        if (Input.GetKeyDown(KeyCode.B) && bossSpawnNum < 3)
+        {
+            ++bossSpawnNum;
+            esm.SpawnBoss();
+        }
     }
 
     public void onStartGame()
@@ -93,24 +114,47 @@ public class LevelManager : MonoBehaviour
         isGamePlaying = true;
     }
 
-    public void onGameEnd()
+    public void onGameEnd(bool isGameClear)
     {
         isGamePlaying = false;
         //Show UI
-        SoundManager.soundManager.SetTitleBGM();
         if (score > UserDataManager.udm.GetHighscore())
         {
             NetworkManager.apiManager.UpdateScore(UserDataManager.udm.GetScoreId(),score, enemynum, gamelevel, new PlayerStatData(player.stat), min, sec);
         }
-        if(gameClearPanel != null){ //Show UI
-            gameClearPanel.SetActive(true);
-            Time.timeScale = 0f;  
+
+        if (isGameClear)
+        {
+            if (gameClearPanel != null)
+            { //Show UI
+                gameClearPanel.SetActive(true);
+                Time.timeScale = 0f;
+            }
+            else
+            {
+                Debug.LogWarning("GameClearPanel is not connect");
+            }
+            if (finalScoreText != null)
+            {
+                finalScoreText.text = score.ToString();
+            }
         }
-        else{
-        Debug.LogWarning("GameClearPanel is not connect");
-        }
-        if (finalScoreText != null){
-            finalScoreText.text = score.ToString();
+        
+        if (!isGameClear)
+        {
+            if (gameOverPanel != null)
+            { //Show UI
+                gameOverPanel.SetActive(true);
+                Time.timeScale = 0f;
+            }
+            else
+            {
+                Debug.LogWarning("GameClearPanel is not connect");
+            }
+            if (finalScoreText != null)
+            {
+                finalScoreText.text = score.ToString();
+            }
         }
     }
     public Vector3 GetPlayerPos()

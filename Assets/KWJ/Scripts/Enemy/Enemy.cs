@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     private float currentHp = 0f;
     [SerializeField]
     private bool isPoison = false;
+    private Color poisonColor = new Color(190 / 255f, 45 / 255f, 1f);
     private float poisonTime = 0f;
     private float poisonDamageTime = 0.5f;
     private float currentPoisonTime = 0f;
@@ -31,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-    private AudioSource audio;
+    private AudioSource sfxAudio;
 
     [SerializeField]
     private AudioClip deadAudio;
@@ -86,7 +87,7 @@ public class Enemy : MonoBehaviour
 
         currentState = idleState;
 
-        audio = GetComponent<AudioSource>();
+        sfxAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -107,6 +108,7 @@ public class Enemy : MonoBehaviour
                 }
                 if (currentPoisonTime > poisonTime)
                 {
+                    spriteRenderer.color = Color.white;
                     isPoison = false;
                 }
             }
@@ -161,6 +163,7 @@ public class Enemy : MonoBehaviour
         currentPoisonTime = 0f;
         poisonTime = duration;
         isPoison = true;
+        spriteRenderer.color = poisonColor;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -214,6 +217,6 @@ public class Enemy : MonoBehaviour
 
     public void PlayDeadAudio()
     {
-        audio.PlayOneShot(deadAudio);
+        sfxAudio.PlayOneShot(deadAudio);
     }
 }

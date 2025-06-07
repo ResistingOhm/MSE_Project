@@ -12,11 +12,11 @@ public class RandomBoxSpawner : MonoBehaviour
     {
         if (LevelManager.LvManager.stageLv.name.Contains("Level1"))
         {
-            spawnInterval = 20f;
+            spawnInterval = 40f;
         }
         else if (LevelManager.LvManager.stageLv.name.Contains("Level2"))
         {
-            spawnInterval = 40f;
+            spawnInterval = 20f;
         }
         else
         {
