@@ -5,7 +5,7 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager soundManager;
-    private AudioSource audio;
+    private AudioSource musicAudio;
 
     public AudioClip title;
     public AudioClip levelOne;
@@ -22,28 +22,30 @@ public class SoundManager : MonoBehaviour
             soundManager = GetComponent<SoundManager>();
             DontDestroyOnLoad(this.gameObject); // Makes the gameobject survive across scene changes
         }
+
+        musicAudio = GetComponent<AudioSource>();
     }
 
     private void Start()
     {
-        audio = GetComponent<AudioSource>();
+
     }
     
     public void SetTitleBGM()
     {
-        audio.clip = title;
-        audio.Play();
+        musicAudio.clip = title;
+        musicAudio.Play();
     }
 
     public void SetLevelOneBGM()
     {
-        audio.clip = levelOne;
-        audio.Play();
+        musicAudio.clip = levelOne;
+        musicAudio.Play();
     }
 
     public void SetLevelTwoBGM()
     {
-        audio.clip = levelTwo;
-        audio.Play();
+        musicAudio.clip = levelTwo;
+        musicAudio.Play();
     }
 }

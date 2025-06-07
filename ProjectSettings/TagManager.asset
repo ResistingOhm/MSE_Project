@@ -7,15 +7,16 @@ TagManager:
   - Enemy
   - Exp
   - Bullet
+  - Ground
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Enemy
-  - 
+  - Wall
   - 
   - 
   - 

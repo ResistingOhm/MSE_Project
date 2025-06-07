@@ -272,6 +272,7 @@ public class Player : MonoBehaviour
             Debug.Log("Has every skill.");
             return;
         }
+    }
 }
 
 
@@ -305,3 +306,4 @@ override protected void enemyDeadEvent()
 
 }
 
+*/

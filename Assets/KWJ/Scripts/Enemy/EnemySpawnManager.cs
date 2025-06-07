@@ -22,13 +22,13 @@ public class EnemySpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /* For Test
-        if (Input.GetKeyDown(KeyCode.W))
+        
+        if (Input.GetKeyDown(KeyCode.J))
         {
             SpawnEnemies(MoveType.WALL_W);
         }
 
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             SpawnEnemies(MoveType.WALL_L);
         }
@@ -42,17 +42,17 @@ public class EnemySpawnManager : MonoBehaviour
         {
             SpawnBoss();
         }
-        */
+        
     }
 
     public void SpawnEnemies(MoveType mt, int spawnNum = -1)
     {
         if (mt == MoveType.WALL_L)
         {
-            int ri = Random.Range(spawnPoints.Length - 2, spawnPoints.Length);
+            int ri = Random.Range(0, 2);
             float pos_x = spawnPoints[ri].position.x;
 
-            for (int i = -12; i < 13; i+=2)
+            for (int i = -60; i < 65; i+=3)
             {
                 Enemy spawnedEnemies = chooseEnemy(new Vector3(pos_x, i, 0));
 
@@ -65,10 +65,10 @@ public class EnemySpawnManager : MonoBehaviour
 
         if (mt == MoveType.WALL_W)
         {
-            int ri = Random.Range(spawnPoints.Length - 2, spawnPoints.Length);
+            int ri = Random.Range(0, 2);
             float pos_y = spawnPoints[ri].position.y;
 
-            for (int i = -12; i < 13; i += 2)
+            for (int i = -45; i < 40; i += 3)
             {
                 Enemy spawnedEnemies = chooseEnemy(new Vector3(i, pos_y, 0));
 

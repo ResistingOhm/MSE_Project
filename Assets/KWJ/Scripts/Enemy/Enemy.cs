@@ -113,7 +113,7 @@ public class Enemy : MonoBehaviour
 
             Vector3 offset = transform.position - LevelManager.LvManager.GetPlayerPos();
             float d = offset.magnitude;
-            if (d > 50f) { gameObject.SetActive(false); }
+            if (d > 200f) { gameObject.SetActive(false); }
         }
     }
 
