@@ -49,8 +49,8 @@ public class LevelManager : MonoBehaviour
     }
     void Start()
     {
-        if (UserDataManager.udm.SelectedLevel()) { stageLv = levelOne; gamelevel = 1; }
-        else { stageLv = levelTwo; gamelevel = 2; }
+        if (UserDataManager.udm.SelectedLevel()) { stageLv = levelOne; gamelevel = 1; SoundManager.soundManager.SetLevelOneBGM(); }
+        else { stageLv = levelTwo; gamelevel = 2; SoundManager.soundManager.SetLevelTwoBGM(); }
         onStartGame();
     }
     // Update is called once per frame
@@ -97,6 +97,7 @@ public class LevelManager : MonoBehaviour
     {
         isGamePlaying = false;
         //Show UI
+        SoundManager.soundManager.SetTitleBGM();
         if (score > UserDataManager.udm.GetHighscore())
         {
             NetworkManager.apiManager.UpdateScore(UserDataManager.udm.GetScoreId(),score, enemynum, gamelevel, new PlayerStatData(player.stat), min, sec);

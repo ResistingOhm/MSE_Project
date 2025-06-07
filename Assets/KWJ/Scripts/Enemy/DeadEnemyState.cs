@@ -12,6 +12,8 @@ public class DeadEnemyState : IEnemyState
 
     public void Enter()
     {
+        enemy.PlayDeadAudio();
+        //Debug.Log("DeadAudioPlay");
         enemy.SetDeadAnimation();
         enemy.EnemyHpGone();
     }

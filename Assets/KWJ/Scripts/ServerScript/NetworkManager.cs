@@ -25,7 +25,7 @@ public class NetworkManager : MonoBehaviour
     {
         if (apiManager != null && apiManager != this)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
@@ -103,12 +103,13 @@ public class NetworkManager : MonoBehaviour
                 // success! Let's parse the JSON data
                 string json = webRequest.downloadHandler.text;
                 //Debug.Log(json);
-                if (json == null)
+                if (string.IsNullOrWhiteSpace(json))
                 {
                 PopupWindow.instance.PopupWindowOpen(
                 PopupWindow.MsgType.error,"wrong password");
                 break;
                 }
+                Debug.Log(json);
                 parseUserDataResult(json);
                 
                 SceneManager.LoadScene("MainScene");
@@ -200,7 +201,7 @@ public class NetworkManager : MonoBehaviour
                 // success! Let's parse the JSON data
                 string json = webRequest.downloadHandler.text;
                 //Debug.Log(json);
-                if (json == null)
+                if (string.IsNullOrWhiteSpace(json))
                 {
                     PopupWindow.instance.PopupWindowOpen(
                     PopupWindow.MsgType.error,

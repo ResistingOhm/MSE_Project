@@ -31,6 +31,10 @@ public class Enemy : MonoBehaviour
 
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private AudioSource audio;
+
+    [SerializeField]
+    private AudioClip deadAudio;
 
     protected IEnemyState currentState;
 
@@ -81,6 +85,8 @@ public class Enemy : MonoBehaviour
         deadState = new DeadEnemyState(this);
 
         currentState = idleState;
+
+        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -204,5 +210,10 @@ public class Enemy : MonoBehaviour
     public void SetVelocityWithDirection()
     {
         rb.velocity = dest * enemyData.Speed * LevelManager.LvManager.stageLv.Speed * chargeSpeed;
+    }
+
+    public void PlayDeadAudio()
+    {
+        audio.PlayOneShot(deadAudio);
     }
 }
