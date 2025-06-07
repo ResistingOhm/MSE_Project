@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public PlayerStatusUI statusUI;
+    public GameoverManager gameoverManager;
+    public GameObject levelUpPopup;
+
     public PlayerStat stat;
     public Vector2 inputVec;
     public float speed;
@@ -40,6 +44,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
+        statusUI = GetComponent<PlayerStatusUI>();
         rigid = GetComponent<Rigidbody2D>();
         spriter = GetComponent<SpriteRenderer>();
         enemyscanner = GetComponent<EnemyScanner>();
@@ -76,6 +81,8 @@ public class Player : MonoBehaviour
     public void ReceiveDamage(float dmg)
     {
         stat.TakeDamage(dmg);
+        statusUI?.UpdateHPbar();
+
         if (stat.IsDead())
         {
             //Debug.Log(" Player dead");
@@ -105,10 +112,52 @@ public class Player : MonoBehaviour
 
     public void OnLevelUp()
     {
-        Debug.Log("·¹º§¾÷! ¿Ã¸± ½ºÅÈÀ» ¼±ÅÃÇÏ¼¼¿ä. (1: HP, 2: °ø°Ý·Â, 3: ¹æ¾î·Â, 4: Çà¿î, 5: ÀÌµ¿¼Óµµ)");
+        Debug.Log("(level up ! choose one. (1: HP, 2: attack, 3: defense, 4: luck, 5: moveSpeed)");
+        if (statusUI != null)
+        {
+            statusUI.UpdateLevel();
+            statusUI.UpdateHPbar();
+            statusUI.UpdateExpbar();
+        }
+
+        if (levelUpPopup != null)
+            levelUpPopup.SetActive(true);
+
+        Time.timeScale = 0f;
+
         StartCoroutine(WaitForStatInput());
     }
+    public void IncreaseStat(int index)
+    {
+        switch (index)
+        {
+            case 1:
+                stat.maxHP += 10;
+                stat.currentHP = stat.maxHP;
+                break;
+            case 2:
+                stat.attack += 10;
+                break;
+            case 3:
+                stat.defense += 10;
+                break;
+            case 4:
+                stat.luck += 10;
+                break;
+            case 5:
+                stat.moveSpeed += 1;
+                break;
+        }
 
+        statusUI?.UpdateLevel();
+        statusUI?.UpdateHPbar();
+        statusUI?.UpdateExpbar();
+
+        if (levelUpPopup != null)
+            levelUpPopup.SetActive(false);
+
+        Time.timeScale = 1f;
+    }
     IEnumerator WaitForStatInput()
     {
         bool selected = false;
@@ -117,28 +166,27 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                stat.maxHP += 10;
-                stat.currentHP = stat.maxHP;
+                IncreaseStat(1);
                 selected = true;
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                stat.attack += 10;
+                IncreaseStat(2);
                 selected = true;
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                stat.defense += 10;
+                IncreaseStat(3);
                 selected = true;
             }
             else if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                stat.luck += 10;
+                IncreaseStat(4);
                 selected = true;
             }
             else if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                stat.moveSpeed += 1;
+                IncreaseStat(5);
                 selected = true;
             }
 
@@ -146,7 +194,8 @@ public class Player : MonoBehaviour
         }
     }
 
-    void HandleBerserkBoost() //ÀÏÁ¤Äð¸¶´Ù °ø°Ý·Â ¼¼Áü
+
+    void HandleBerserkBoost() //ï¿½ï¿½ï¿½ï¿½ï¿½ð¸¶´ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         if (!hasBerserkBoost) return;
 
@@ -168,7 +217,7 @@ public class Player : MonoBehaviour
         isBerserkActive = false;
     }
 
-    void HandleSprintSurge() //ÀÏÁ¤ Äð¸¶´Ù ¼Óµµ »¡¶óÁü
+    void HandleSprintSurge() //ï¿½ï¿½ï¿½ï¿½ ï¿½ð¸¶´ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         if (!hasSprintSurge) return;
 
@@ -194,7 +243,7 @@ public class Player : MonoBehaviour
     public void LearnSpinBlade() { hasSpinBlade = true; }
 
     /*
-     º¸½ºÀÇ enemyDeadEvent() ¾È¿¡ ÀÌ°Å ÇÊ¿ä
+     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ enemyDeadEvent() ï¿½È¿ï¿½ ï¿½Ì°ï¿½ ï¿½Ê¿ï¿½
      LevelManager.LvManager.player.OnBossKilled();
      */
 
@@ -217,11 +266,30 @@ public class Player : MonoBehaviour
         if (!hasSprintSurge) availableSkills.Add(3);
         if (!hasSpinBlade) availableSkills.Add(4);
 
+
         if (availableSkills.Count == 0)
         {
             Debug.Log("Has every skill.");
             return;
         }
+}
+
+
+/*
+ Boss.csï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½!...
+ public enum BossRewardType
+{
+    None,
+    RoseThorn,
+    BerserkBoost,
+    SprintSurge
+}
+
+public BossRewardType rewardType = BossRewardType.None;
+
+override protected void enemyDeadEvent()
+{
+    gameObject.SetActive(false);
 
         int selected = availableSkills[Random.Range(0, availableSkills.Count)];
         switch (selected)

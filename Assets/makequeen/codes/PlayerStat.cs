@@ -5,24 +5,30 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerStat : MonoBehaviour
 {
+    public PlayerStatusUI statusUI;
+    
     public float maxHP = 100f;
     public float currentHP = 100f;
     public float attack = 10f;
-    public float defense = 5f;  // ¹æ¾î·Â
-    public float luck = 0f;     // Çà¿î
+    public float defense = 5f;  // ï¿½ï¿½ï¿½ï¿½
+    public float luck = 0f;     // ï¿½ï¿½ï¿½
     public float moveSpeed = 5f;
 
     public int level = 1;
     public float currentExp = 0f;
     public float maxExp = 10f;
 
+    void Start()
+    {
+        statusUI = GetComponent<PlayerStatusUI>();
+    }
     public void ResetHP()
     {
         currentHP = maxHP;
     }
     public void TakeDamage(float dmg)
     {
-        float finalDmg = Mathf.Max(dmg - defense, 1); // ÃÖ¼Ò 1 µ¥¹ÌÁö´Â ¹ÞÀ½
+        float finalDmg = Mathf.Max(dmg - defense, 1); // ï¿½Ö¼ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         currentHP -= finalDmg;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
     }
@@ -45,9 +51,20 @@ public class PlayerStat : MonoBehaviour
     void LevelUp()
     {
         level++;
-        maxExp *= 1.2f; // Á¡Á¡ ·¹º§¾÷¿¡ ÇÊ¿äÇÑ °æÇèÄ¡ Áõ°¡
-        Debug.Log("·¹º§¾÷! ÇöÀç ·¹º§: " + level);
-        // ½ºÅÈ°­È­uiÇÊ¿ä...
+        maxExp *= 1.2f;
+
+        float hpIncrease = 20f;
+        maxHP += hpIncrease;
+        currentHP = maxHP;
+
+        if (statusUI != null)
+        {
+            statusUI.UpdateHPbar();
+            statusUI.UpdateLevel();
+        }
+
+        Debug.Log("level up ! : " + level);
+
         LevelManager.LvManager.player.OnLevelUp(); 
     }
 

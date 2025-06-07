@@ -28,7 +28,7 @@ public class Weapon : MonoBehaviour
     {
         switch (id)
         {
-            case 1: // Rose Thorn µ¶µ©
+            case 1: // Rose Thorn ÂµÂ¶ÂµÂ©
                 if (!player.hasRoseThorn)
                     return;
 
@@ -61,7 +61,7 @@ public class Weapon : MonoBehaviour
     public void Init()
     {
         switch (id) {
-            case 2: //È¸Àü¹«±â
+            case 2: //ÃˆÂ¸Ã€Ã¼Â¹Â«Â±Ã¢
                 speed = 150;
                 Batch();
                 break;

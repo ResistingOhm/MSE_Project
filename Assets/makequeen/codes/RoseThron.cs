@@ -37,7 +37,7 @@ public class RoseThorn : MonoBehaviour
             Enemy enemy = col.GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.SendMessage("PoisonDamage", poisonDuration, SendMessageOptions.DontRequireReceiver);
+                enemy.PoisonDamage(poisonDuration);
 
                 Player player = FindObjectOfType<Player>();
                 if (player != null)
@@ -48,6 +48,7 @@ public class RoseThorn : MonoBehaviour
                         audioSource.PlayOneShot(player.PhitSFX[Random.Range(0, player.PhitSFX.Length)]);
                     }
                 }
+                
             }
         }
     }
