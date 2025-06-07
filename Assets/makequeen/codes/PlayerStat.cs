@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerStat : MonoBehaviour
 {
+    public PlayerStatusUI statusUI;
+    
     public float maxHP = 100f;
     public float currentHP = 100f;
     public float attack = 10f;
@@ -16,6 +18,10 @@ public class PlayerStat : MonoBehaviour
     public float currentExp = 0f;
     public float maxExp = 10f;
 
+    void Start()
+    {
+        statusUI = GetComponent<PlayerStatusUI>();
+    }
     public void ResetHP()
     {
         currentHP = maxHP;
@@ -45,9 +51,20 @@ public class PlayerStat : MonoBehaviour
     void LevelUp()
     {
         level++;
-        maxExp *= 1.2f; // ���� �������� �ʿ��� ����ġ ����
-        Debug.Log("������! ���� ����: " + level);
-        // ���Ȱ�ȭui�ʿ�...
+        maxExp *= 1.2f;
+
+        float hpIncrease = 20f;
+        maxHP += hpIncrease;
+        currentHP = maxHP;
+
+        if (statusUI != null)
+        {
+            statusUI.UpdateHPbar();
+            statusUI.UpdateLevel();
+        }
+
+        Debug.Log("level up ! : " + level);
+
         LevelManager.LvManager.player.OnLevelUp(); 
     }
 

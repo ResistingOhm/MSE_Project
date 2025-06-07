@@ -73,7 +73,9 @@ public class NetworkManager : MonoBehaviour
 
         if (!idCheck)
         {
-            Debug.LogWarning("Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌµðÀÔ´Ï´Ù.");
+            PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.warning,"This ID does not exist. Please register first."
+            );
             yield break;
         }
 
@@ -90,10 +92,12 @@ public class NetworkManager : MonoBehaviour
         {
             case UnityWebRequest.Result.ConnectionError:
             case UnityWebRequest.Result.DataProcessingError:
-                Debug.LogError("Error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,"Error: " + webRequest.error);
                 break;
             case UnityWebRequest.Result.ProtocolError:
-                Debug.LogError("Protocol error: " + webRequest.error);
+               PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,"Protocol error: " + webRequest.error);
                 break;
             case UnityWebRequest.Result.Success:
                 // success! Let's parse the JSON data
@@ -101,11 +105,12 @@ public class NetworkManager : MonoBehaviour
                 //Debug.Log(json);
                 if (json == null)
                 {
-                    Debug.Log("ºñ¹Ð¹øÈ£°¡ Æ²¸³´Ï´Ù.");
-                    break;
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,"wrong password");
+                break;
                 }
                 parseUserDataResult(json);
-                Debug.Log("·Î±×ÀÎ ¼º°ø!");
+                
                 SceneManager.LoadScene("MainScene");
                 break;
 
@@ -124,7 +129,13 @@ public class NetworkManager : MonoBehaviour
     {
         ScoreDataList s = JsonUtility.FromJson<ScoreDataList>(json);
 
+        if (LeaderBoardManager.instance != null){
+        
         LeaderBoardManager.instance.SetList(s);
+        }
+        else{
+        Debug.LogError("âŒ LeaderBoardManager.instance is null.");
+        }
     }
     private string GetUserDataJson(string name, string id, string pw)
     {
@@ -158,7 +169,7 @@ public class NetworkManager : MonoBehaviour
 
         if (idCheck)
         {
-            Debug.LogWarning("ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµðÀÔ´Ï´Ù.");
+            PopupWindow.instance.PopupWindowOpen(PopupWindow.MsgType.warning,"This ID is already taken. Please choose another one.");
             yield break;
         }
 
@@ -176,10 +187,14 @@ public class NetworkManager : MonoBehaviour
         {
             case UnityWebRequest.Result.ConnectionError:
             case UnityWebRequest.Result.DataProcessingError:
-                Debug.LogError("Error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,
+                "Error: " + webRequest.error);
                 break;
             case UnityWebRequest.Result.ProtocolError:
-                Debug.LogError("Protocol error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,
+                "Error: " + webRequest.error);
                 break;
             case UnityWebRequest.Result.Success:
                 // success! Let's parse the JSON data
@@ -187,11 +202,17 @@ public class NetworkManager : MonoBehaviour
                 //Debug.Log(json);
                 if (json == null)
                 {
-                    Debug.Log("¹º°¡ ¹®Á¦°¡ ¹ß»ýÇß¾î¿ä");
+                    PopupWindow.instance.PopupWindowOpen(
+                    PopupWindow.MsgType.error,
+                    "Failed to register.");
                     break;
                 }
-                Debug.Log("È¸¿ø°¡ÀÔ ¼º°ø!");
-                SceneManager.LoadScene("Login");
+                PopupWindow.instance.PopupCheckWindowOpen(
+                () => {
+                SceneManager.LoadScene("Login");},
+                "MoveToLoginScene",
+                PopupWindow.MsgType.notice,
+                "Registration successful!");
                 break;
 
         }
@@ -214,10 +235,12 @@ public class NetworkManager : MonoBehaviour
         {
             case UnityWebRequest.Result.ConnectionError:
             case UnityWebRequest.Result.DataProcessingError:
-                Debug.LogError("Error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,("Error: " + webRequest.error));
                 break;
-            case UnityWebRequest.Result.ProtocolError:
-                Debug.LogError("Protocol error: " + webRequest.error);
+            case UnityWebRequest.Result.ProtocolError:  
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,("Protocol Error: " + webRequest.error));
                 break;
             case UnityWebRequest.Result.Success:
                 // success! Let's parse the JSON data
@@ -225,7 +248,6 @@ public class NetworkManager : MonoBehaviour
                 //Debug.Log(json);
                 UserDataManager.udm.SetHighscore(score);
                 //Do Something after updating score
-                SceneManager.LoadScene("MainScene");
                 break;
 
         }
@@ -243,10 +265,12 @@ public class NetworkManager : MonoBehaviour
         {
             case UnityWebRequest.Result.ConnectionError:
             case UnityWebRequest.Result.DataProcessingError:
-                Debug.LogError("Error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,("Error: " + webRequest.error));
                 break;
             case UnityWebRequest.Result.ProtocolError:
-                Debug.LogError("Protocol error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,("Protocol Error: " + webRequest.error));
                 break;
             case UnityWebRequest.Result.Success:
                 // success! Let's parse the JSON data
@@ -274,10 +298,12 @@ public class NetworkManager : MonoBehaviour
         {
             case UnityWebRequest.Result.ConnectionError:
             case UnityWebRequest.Result.DataProcessingError:
-                Debug.LogError("Error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,("Error: " + webRequest.error));
                 break;
             case UnityWebRequest.Result.ProtocolError:
-                Debug.LogError("Protocol error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,("Protocol Error: " + webRequest.error));
                 break;
             case UnityWebRequest.Result.Success:
                 // success! Let's parse the JSON data
@@ -285,6 +311,8 @@ public class NetworkManager : MonoBehaviour
                 //Debug.Log(json);
                 parseScoreDataResult(json);
                 Debug.Log("LeaderBoard Done");
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.notice,("LeaderBoard Done"));
                 break;
 
         }
@@ -306,10 +334,12 @@ public class NetworkManager : MonoBehaviour
         {
             case UnityWebRequest.Result.ConnectionError:
             case UnityWebRequest.Result.DataProcessingError:
-                Debug.LogError("Error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,("Error: " + webRequest.error));
                 break;
             case UnityWebRequest.Result.ProtocolError:
-                Debug.LogError("Protocol error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,("Protocol Error: " + webRequest.error));
                 break;
             case UnityWebRequest.Result.Success:
                 // success! Let's parse the JSON data
@@ -338,10 +368,12 @@ public class NetworkManager : MonoBehaviour
         {
             case UnityWebRequest.Result.ConnectionError:
             case UnityWebRequest.Result.DataProcessingError:
-                Debug.LogError("Error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,("Error: " + webRequest.error));
                 break;
             case UnityWebRequest.Result.ProtocolError:
-                Debug.LogError("Protocol error: " + webRequest.error);
+                PopupWindow.instance.PopupWindowOpen(
+                PopupWindow.MsgType.error,("Protocol Error: " + webRequest.error));
                 break;
             case UnityWebRequest.Result.Success:
                 // success! Let's parse the JSON data
@@ -364,5 +396,6 @@ public class NetworkManager : MonoBehaviour
             Debug.Log(joke.setup + " / " + joke.punchline);
             //Call some method to get result
         }
+        
     }
 }
