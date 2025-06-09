@@ -10,8 +10,8 @@ public class PlayerStat : MonoBehaviour
     public float maxHP = 100f;
     public float currentHP = 100f;
     public float attack = 10f;
-    public float defense = 5f;  // ����
-    public float luck = 0f;     // ���
+    public float defense = 5f;
+    public float luck = 0f;
     public float moveSpeed = 5f;
 
     public int level = 1;
@@ -28,7 +28,7 @@ public class PlayerStat : MonoBehaviour
     }
     public void TakeDamage(float dmg)
     {
-        float finalDmg = Mathf.Max(dmg - defense, 1); // �ּ� 1 �������� ����
+        float finalDmg = Mathf.Max(dmg - defense, 1);
         currentHP -= finalDmg;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
     }

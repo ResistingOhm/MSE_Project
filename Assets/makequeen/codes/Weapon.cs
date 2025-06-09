@@ -28,7 +28,7 @@ public class Weapon : MonoBehaviour
     {
         switch (id)
         {
-            case 1: // Rose Thorn µ¶µ©
+            case 1: // Rose Thorn
                 if (!player.hasRoseThorn)
                     return;
 
@@ -61,7 +61,7 @@ public class Weapon : MonoBehaviour
     public void Init()
     {
         switch (id) {
-            case 2: //È¸Àü¹«±â
+            case 2: 
                 speed = 150;
                 Batch();
                 break;
@@ -86,7 +86,7 @@ public class Weapon : MonoBehaviour
         bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
 
         float totalDamage = damage + player.stat.attack;
-        bullet.GetComponent<Bullet>().Init(damage, count, dir);
+        bullet.GetComponent<Bullet>().Init(totalDamage, count, dir);
     }
 
     void CastRoseThorn()
