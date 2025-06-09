@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8404191858868358442}
   - component: {fileID: 319243063916866251}
   - component: {fileID: 8386373840428289128}
+  - component: {fileID: 8167213743985235081}
   m_Layer: 0
   m_Name: "\uC7A5"
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: dcd77f046f38abf4abd6d7f9ed4cdb98, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0a1e46e11fde86e43835abb66873a2fd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -137,3 +138,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25
+--- !u!114 &8167213743985235081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716828049458825664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20342eade14596546a452ae463d81a0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -190,8 +190,10 @@ MonoBehaviour:
   inputVec: {x: 0, y: 0}
   speed: 4
   enemyscanner: {fileID: 0}
-  PdeathSFX: {fileID: 0}
-  PhitSFX: []
+  PdeathSFX: {fileID: 8300000, guid: 291608b8d286e2a4580ff36324455ce2, type: 3}
+  PhitSFX:
+  - {fileID: 8300000, guid: 0bddcb411d826e14bb26d40ae45d8e22, type: 3}
+  - {fileID: 8300000, guid: 6b7eaf4532a2f614595ad58d2b86efc4, type: 3}
   hasBerserkBoost: 0
   hasSprintSurge: 0
   hasRoseThorn: 0

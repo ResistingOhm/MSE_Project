@@ -196,7 +196,7 @@ public class Player : MonoBehaviour
     }
 
 
-    void HandleBerserkBoost() //�����𸶴� ���ݷ� ����
+    void HandleBerserkBoost() 
     {
         if (!hasBerserkBoost) return;
 
@@ -218,7 +218,7 @@ public class Player : MonoBehaviour
         isBerserkActive = false;
     }
 
-    void HandleSprintSurge() //���� �𸶴� �ӵ� ������
+    void HandleSprintSurge() 
     {
         if (!hasSprintSurge) return;
 
@@ -244,7 +244,7 @@ public class Player : MonoBehaviour
     public void LearnSpinBlade() { hasSpinBlade = true; }
 
     /*
-     ������ enemyDeadEvent() �ȿ� �̰� �ʿ�
+     enemyDeadEvent() 
      LevelManager.LvManager.player.OnBossKilled();
      */
 
@@ -275,36 +275,3 @@ public class Player : MonoBehaviour
         }
     }
 }
-
-
-/*
- Boss.cs�� �߰��ؾ���!...
- public enum BossRewardType
-{
-    None,
-    RoseThorn,
-    BerserkBoost,
-    SprintSurge
-}
-
-public BossRewardType rewardType = BossRewardType.None;
-
-override protected void enemyDeadEvent()
-{
-    gameObject.SetActive(false);
-
-        int selected = availableSkills[Random.Range(0, availableSkills.Count)];
-        switch (selected)
-        {
-            case 1: LearnRoseThorn(); break;
-            case 2: hasBerserkBoost = true; break;
-            case 3: hasSprintSurge = true; break;
-            case 4: LearnSpinBlade(); break;
-        }
-
-        Debug.Log("reward skill: " + selected);
-    }
-
-}
-
-*/
