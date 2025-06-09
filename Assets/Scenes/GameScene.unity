@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 366831248}
   - component: {fileID: 366831247}
   - component: {fileID: 366831246}
+  - component: {fileID: 366831249}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -471,12 +472,26 @@ Transform:
   m_GameObject: {fileID: 366831245}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.05, y: -0.08, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1343396716}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &366831249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366831245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47c7e6fd8a7a84706807e7a9d56d7d97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1343396716}
+  offset: {x: 0, y: 0, z: -10}
 --- !u!1001 &563132507
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1967,12 +1982,13 @@ PrefabInstance:
       propertyPath: gameoverManager
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7214026040009654568, guid: 64863744ee7cd58438c0d63f68703284, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 895873144490838141, guid: 64863744ee7cd58438c0d63f68703284, type: 3}
-      insertIndex: 0
-      addedObject: {fileID: 366831248}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 508219396130790682, guid: 64863744ee7cd58438c0d63f68703284, type: 3}
       insertIndex: -1
@@ -134887,6 +134903,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 7140824309995007571}
+  - {fileID: 366831248}
   - {fileID: 1343396715}
   - {fileID: 802601622}
   - {fileID: 835338665}
