@@ -7,7 +7,8 @@ public class LevelManager : MonoBehaviour
     public static LevelManager LvManager;
     public GameObject gameClearPanel;
     public GameObject gameOverPanel;
-    public TextMeshProUGUI finalScoreText;
+    public TextMeshProUGUI finalScoreTextGO;
+    public TextMeshProUGUI finalScoreTextGC;
 
     [SerializeField]
     private EnemySpawnManager esm;
@@ -134,9 +135,9 @@ public class LevelManager : MonoBehaviour
             {
                 Debug.LogWarning("GameClearPanel is not connect");
             }
-            if (finalScoreText != null)
+            if (finalScoreTextGC != null)
             {
-                finalScoreText.text = score.ToString();
+                finalScoreTextGC.text = score.ToString();
             }
         }
         
@@ -151,9 +152,9 @@ public class LevelManager : MonoBehaviour
             {
                 Debug.LogWarning("GameClearPanel is not connect");
             }
-            if (finalScoreText != null)
+            if (finalScoreTextGO != null)
             {
-                finalScoreText.text = score.ToString();
+                finalScoreTextGO.text = score.ToString();
             }
         }
     }
