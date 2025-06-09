@@ -26,16 +26,12 @@ public class PopupWindow : MonoBehaviour {
 
     void Awake()
     {
-        if (instance != null && instance != this)
-        {
+        if (instance != null && instance != this){
             Destroy(gameObject);
             return;
         }
-
         instance = this;
-        DontDestroyOnLoad(gameObject);
     }
-       
 	// Use this for initialization
 	void Start ()
     {
