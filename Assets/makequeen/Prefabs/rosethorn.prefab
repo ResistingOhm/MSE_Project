@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8386373840428289128}
   - component: {fileID: 8167213743985235081}
   m_Layer: 0
-  m_Name: "\uC7A5"
+  m_Name: rosethorn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
