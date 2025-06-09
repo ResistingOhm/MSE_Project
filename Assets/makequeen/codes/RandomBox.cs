@@ -20,24 +20,29 @@ public class RandomBox : MonoBehaviour
        
         NetworkManager.apiManager.GetRandomJoke(1);
 
+        string effectString;
+
         BoxRewardType reward = GetReward(player.stat.luck);
         switch (reward)
         {
             case BoxRewardType.SmallPotion:
                 player.stat.Heal(15f);
-                Debug.Log("Low Potion! HP +15");
+                effectString = "Low Potion! HP +15";
                 break;
 
             case BoxRewardType.LargePotion:
                 player.stat.Heal(30f);
-                Debug.Log("High Potion! HP +30");
+                effectString = "High Potion! HP +30";
                 break;
 
             case BoxRewardType.None:
             default:
-                Debug.Log("No Luck!");
+                effectString = "No Luck!";
                 break;
         }
+
+        RandomJokePrinter.rjp.SetText(2, effectString);
+        RandomJokePrinter.rjp.PrinterOn();
 
         gameObject.SetActive(false);
     }

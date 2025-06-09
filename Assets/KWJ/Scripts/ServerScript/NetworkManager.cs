@@ -395,7 +395,8 @@ public class NetworkManager : MonoBehaviour
         foreach(RandomJokeData joke in j.randomjokes)
         {
             Debug.Log(joke.setup + " / " + joke.punchline);
-            //Call some method to get result
+            RandomJokePrinter.rjp.SetText(0, joke.setup);
+            RandomJokePrinter.rjp.SetText(1, joke.punchline);
         }
         
     }
