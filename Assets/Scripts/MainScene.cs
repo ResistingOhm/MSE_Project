@@ -17,11 +17,11 @@ public class MainScene : MonoBehaviour
     public void OnClickLevelOneButton()
     {
         UserDataManager.udm.SelectedLevel(true);
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("LodingScene");
     }
     public void OnClickLevelTwoButton()
     {
         UserDataManager.udm.SelectedLevel(false);
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("LodingScene");
     }
 }
