@@ -8,7 +8,6 @@ public class GameoverManager : MonoBehaviour
 {
 
     public GameObject gameoverPanel;
-    public Text scoreText;
     public Button mainButton;
     public Button replayButton;
 
@@ -18,14 +17,6 @@ public class GameoverManager : MonoBehaviour
         mainButton.onClick.AddListener(OnMainMenu);
         replayButton.onClick.AddListener(OnRetry);
     
-    }
-    public void ShowGameOver(){
-        if (gameoverPanel != null){
-            gameoverPanel.SetActive(true);
-        }
-        
-        Time.timeScale = 0f;
-        scoreText.text = " 100 "; //server 
     }
     public void OnRetry(){
 
