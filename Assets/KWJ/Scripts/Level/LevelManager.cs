@@ -87,6 +87,11 @@ public class LevelManager : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            esm.SpawnEnemies(MoveType.FOLLOW);
+        }
+
         if (Input.GetKeyDown(KeyCode.J))
         {
             esm.SpawnEnemies(MoveType.WALL_W);

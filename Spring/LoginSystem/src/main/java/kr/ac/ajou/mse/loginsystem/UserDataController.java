@@ -26,6 +26,7 @@ public class UserDataController {
         manager.addUser(new RequestUserData("Keun", "id", "password"));
         manager.addUser(new RequestUserData("Kim", "id2", "pass"));
         manager.addUser(new RequestUserData("Lee", "id3", "word"));
+        manager.addUser(new RequestUserData("Choi", "id4", "pw"));
     }
 
     @PostMapping(value = "/add", produces = "application/json", consumes = "application/json")
